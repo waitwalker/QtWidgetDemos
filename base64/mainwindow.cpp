@@ -4,7 +4,8 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QLabel>
-
+#include <QFileDialog>
+#include "base64tool.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -122,10 +123,6 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel *textLabel = new QLabel;
     textLabel->setStyleSheet("QLabel{border:2px solid rgb(255, 255, 0);}");
 
-    QPushButton *button4 = new QPushButton("button4");
-
-
-
 
 
     //void QLayout::setContentsMargins(int left, int top, int right, int bottom)
@@ -149,6 +146,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     widget->setLayout(vLayout);
     setCentralWidget(widget);
+
+    connect(openFile,&QPushButton::clicked,[=](){
+        QString filePath = QFileDialog::getOpenFileName(this,"选择文件","","图片(*.png *.jpg *.PNG *JPG *.jpeg *.JPEG *.heic *HEIC)");
+        qDebug()<<filePath;
+    });
 
 }
 
