@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 设置控件之间的间距
     //vLayout->setSpacing(10);
+    // 居中显示 上下分别添加一个弹簧
     // 居下显示
     vLayout->addStretch();
     hLayout->addWidget(button1);
