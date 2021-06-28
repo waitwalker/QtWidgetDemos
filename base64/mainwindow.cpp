@@ -174,6 +174,17 @@ MainWindow::MainWindow(QWidget *parent)
         textLabel->setText(base64);
     });
 
+    // base64 转 图片
+    connect(base64ToImage,&QPushButton::clicked,[=](){
+        if (textLabel->toPlainText().trimmed().isEmpty()) {
+            qDebug()<<"base64参数为空或者错误";
+            return ;
+        }
+
+        QPixmap pixMap = QPixmap::fromImage(Base64Tool::imageFrom(textLabel->toPlainText().trimmed()));
+        imageLabel->setPixmap(pixMap);
+    });
+
     // 清空数据按钮
     connect(clearDataButton,&QPushButton::clicked,[=](){
         lineEdit->clear();
