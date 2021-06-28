@@ -144,14 +144,10 @@ MainWindow::MainWindow(QWidget *parent)
     vLayout->setAlignment(Qt::AlignTop);
     vLayout->setStretchFactor(imageLabel,5);
     vLayout->setStretchFactor(textLabel,5);
-//    textLabel->setWordWrap(true);
-//    imageLabel->setFixedHeight(300);
-//    textLabel->setFixedHeight(300);
-//    textLabel->setFixedWidth(800);
-
     widget->setLayout(vLayout);
     setCentralWidget(widget);
 
+    // 打开文件回调 信号 & 槽
     connect(openFile,&QPushButton::clicked,[=](){
         QString filePath = QFileDialog::getOpenFileName(this,"选择文件","","图片(*.png *.jpg *.PNG *JPG *.jpeg *.JPEG *.heic *HEIC)");
         qDebug()<<filePath;
@@ -163,6 +159,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
 
+    // 图片转base64
     connect(imageToBase64,&QPushButton::clicked,[=](){
         if (lineEdit->text().isEmpty()) {
             qDebug()<<"文件路径为空或者错误";
@@ -175,6 +172,14 @@ MainWindow::MainWindow(QWidget *parent)
             return ;
         }
         textLabel->setText(base64);
+    });
+
+    // 清空数据按钮
+    connect(clearDataButton,&QPushButton::clicked,[=](){
+        lineEdit->clear();
+        lineEdit2->clear();
+        imageLabel->clear();
+        textLabel->clear();
     });
 
 }
