@@ -185,7 +185,7 @@ MainWindow::MainWindow(QWidget *parent)
         imageLabel->setPixmap(pixMap);
     });
 
-    // 文字转base64
+    // 文字 转 base64
     connect(textToBase64,&QPushButton::clicked,[=](){
         if (lineEdit2->text().isEmpty()) {
             qDebug()<<"请输入源文字";
@@ -198,7 +198,20 @@ MainWindow::MainWindow(QWidget *parent)
             return ;
         }
         textLabel->setText(base64);
+    });
 
+    // base64 转 文字 5byg5LiJ5Liw
+    connect(base64ToText,&QPushButton::clicked,[=](){
+        if (textLabel->toPlainText().trimmed().isEmpty()) {
+            qDebug()<<"base64参数为空或者错误";
+            return ;
+        }
+        QString text = Base64Tool::textFrom(textLabel->toPlainText().trimmed());
+        if (text.isEmpty()) {
+            qDebug()<<"base64参数为空或者错误";
+            return ;
+        }
+        lineEdit2->setText(text);
     });
 
     // 清空数据按钮
