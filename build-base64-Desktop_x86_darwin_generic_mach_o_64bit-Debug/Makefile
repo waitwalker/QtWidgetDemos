@@ -52,9 +52,11 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../base64/main.cpp \
+SOURCES       = ../base64/base64tool.cpp \
+		../base64/main.cpp \
 		../base64/mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+OBJECTS       = base64tool.o \
+		main.o \
 		mainwindow.o \
 		moc_mainwindow.o
 DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.prf \
@@ -217,6 +219,7 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		../base64/.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -245,7 +248,9 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exceptions.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
-		../base64/base64.pro ../base64/mainwindow.h ../base64/main.cpp \
+		../base64/base64.pro ../base64/base64tool.h \
+		../base64/mainwindow.h ../base64/base64tool.cpp \
+		../base64/main.cpp \
 		../base64/mainwindow.cpp
 QMAKE_TARGET  = base64
 DESTDIR       = 
@@ -255,7 +260,7 @@ TARGET        = base64.app/Contents/MacOS/base64
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 11.3
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-base64-Desktop_x86_darwin_generic_mach_o_64bit-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
@@ -430,6 +435,7 @@ Makefile: ../base64/base64.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/mac
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -623,6 +629,7 @@ Makefile: ../base64/base64.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/mac
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf:
@@ -685,8 +692,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../base64/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../base64/main.cpp ../base64/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../base64/base64tool.h ../base64/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../base64/base64tool.cpp ../base64/main.cpp ../base64/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../base64/mainwindow.ui $(DISTDIR)/
 
 
@@ -697,6 +704,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r base64.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -754,6 +762,17 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
+base64tool.o: ../base64/base64tool.cpp ../base64/base64tool.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QImage \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qimage.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QString \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qstring.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QBuffer \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qbuffer.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QDebug \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qdebug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o base64tool.o ../base64/base64tool.cpp
+
 main.o: ../base64/main.cpp ../base64/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -767,12 +786,12 @@ mainwindow.o: ../base64/mainwindow.cpp ../base64/mainwindow.h \
 		ui_mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QPushButton \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QLineEdit \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qlineedit.h \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QFormLayout \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qformlayout.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QLabel \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qlabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../base64/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

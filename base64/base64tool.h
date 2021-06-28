@@ -1,11 +1,38 @@
 #ifndef BASE64TOOL_H
 #define BASE64TOOL_H
+#include <QImage>
+#include <QString>
 
+
+/*
+    通过提供静态函数调用
+*/
 
 class Base64Tool
 {
 public:
+    // 无参数构造函数
     Base64Tool();
+
+    // 图片转base64编码
+    static QString base64From(const QImage &image);
+
+    // base64 转换为图片
+    static QImage imageFrom(const QString &base64);
+
+    //base64编码数据转图片
+    QImage getImage(const QString &data);
+
+    //汉字转base64编码
+    QString getBase64(const QString &data);
+    //base64编码转汉字
+    QString getData(const QString &base64);
+
+    ~Base64Tool();
+
+private:
+    // 图片转换为字节数组
+    static QByteArray imageDataFrom(const QImage &image);
 };
 
 #endif // BASE64TOOL_H
