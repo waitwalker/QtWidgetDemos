@@ -14,9 +14,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // 布局
     // 1)创建一个widget
     QWidget *widget = new QWidget;
 
+    // 2)初始化一个布局
     // 总容器 垂直
     QVBoxLayout *vLayout = new QVBoxLayout(widget);
 
@@ -123,9 +125,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     QTextEdit *textLabel = new QTextEdit;
     textLabel->setStyleSheet("QLabel{border:2px solid rgb(255, 255, 0);}");
-
-
-
     //void QLayout::setContentsMargins(int left, int top, int right, int bottom)
     vLayout->setContentsMargins(30,20,30,0);
 
@@ -134,6 +133,8 @@ MainWindow::MainWindow(QWidget *parent)
     // 居中显示 上下分别添加一个弹簧
     // 居下显示 在上面添加一个弹簧
     //vLayout->addStretch();
+
+
     vLayout->addLayout(topHLayout);
     vLayout->addLayout(middleHLayout);
     vLayout->addWidget(imageLabel);
@@ -144,7 +145,9 @@ MainWindow::MainWindow(QWidget *parent)
     vLayout->setAlignment(Qt::AlignTop);
     vLayout->setStretchFactor(imageLabel,5);
     vLayout->setStretchFactor(textLabel,5);
+    //3) 将widget的布局设置为vLayout
     widget->setLayout(vLayout);
+    //4) 设置窗口的中心控件为widget
     setCentralWidget(widget);
 
     // 打开文件回调 信号 & 槽
@@ -200,7 +203,7 @@ MainWindow::MainWindow(QWidget *parent)
         textLabel->setText(base64);
     });
 
-    // base64 转 文字 5byg5LiJ5Liw
+    // base64 转 文字
     connect(base64ToText,&QPushButton::clicked,[=](){
         if (textLabel->toPlainText().trimmed().isEmpty()) {
             qDebug()<<"base64参数为空或者错误";
