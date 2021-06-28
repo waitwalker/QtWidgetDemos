@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QFileDialog>
 #include "base64tool.h"
+#include <QTextEdit>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -120,7 +121,7 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel *imageLabel = new QLabel;
     imageLabel->setStyleSheet("QLabel{border:2px solid rgb(0, 255, 0);}");
 
-    QLabel *textLabel = new QLabel;
+    QTextEdit *textLabel = new QTextEdit;
     textLabel->setStyleSheet("QLabel{border:2px solid rgb(255, 255, 0);}");
 
 
@@ -143,6 +144,10 @@ MainWindow::MainWindow(QWidget *parent)
     vLayout->setAlignment(Qt::AlignTop);
     vLayout->setStretchFactor(imageLabel,5);
     vLayout->setStretchFactor(textLabel,5);
+//    textLabel->setWordWrap(true);
+//    imageLabel->setFixedHeight(300);
+//    textLabel->setFixedHeight(300);
+//    textLabel->setFixedWidth(800);
 
     widget->setLayout(vLayout);
     setCentralWidget(widget);
@@ -150,6 +155,26 @@ MainWindow::MainWindow(QWidget *parent)
     connect(openFile,&QPushButton::clicked,[=](){
         QString filePath = QFileDialog::getOpenFileName(this,"选择文件","","图片(*.png *.jpg *.PNG *JPG *.jpeg *.JPEG *.heic *HEIC)");
         qDebug()<<filePath;
+        if (!filePath.isEmpty()) {
+            lineEdit->setText(filePath);
+            QPixmap pixMap;
+            pixMap.load(filePath);
+            imageLabel->setPixmap(pixMap);
+        }
+    });
+
+    connect(imageToBase64,&QPushButton::clicked,[=](){
+        if (lineEdit->text().isEmpty()) {
+            qDebug()<<"文件路径为空或者错误";
+            return ;
+        }
+        QString filePath = lineEdit->text();
+        QString base64 = Base64Tool::base64From(QImage(filePath));
+        if (base64.isEmpty()) {
+            qDebug()<<"文件路径为空或者错误";
+            return ;
+        }
+        textLabel->setText(base64);
     });
 
 }
