@@ -20,13 +20,11 @@ public:
     // base64 转换为图片
     static QImage imageFrom(const QString &base64);
 
-    //base64编码数据转图片
-    QImage getImage(const QString &data);
+    //汉字转base64编码  重载
+    QString base64From(const QString &text);
 
-    //汉字转base64编码
-    QString getBase64(const QString &data);
     //base64编码转汉字
-    QString getData(const QString &base64);
+    QString textFrom(const QString &base64);
 
     ~Base64Tool();
 

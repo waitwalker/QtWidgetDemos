@@ -22,6 +22,18 @@ QImage Base64Tool::imageFrom(const QString &base64)
     return image;
 }
 
+QString Base64Tool::base64From(const QString &text)
+{
+    qDebug()<<"文字转base64:"<<QString(text.toLocal8Bit().toBase64());
+    return QString(text.toLocal8Bit().toBase64());
+}
+
+QString Base64Tool::textFrom(const QString &base64)
+{
+    QByteArray dataArray = QByteArray::fromBase64(base64.toLocal8Bit());
+    return QString(dataArray);
+}
+
 
 Base64Tool::~Base64Tool()
 {
