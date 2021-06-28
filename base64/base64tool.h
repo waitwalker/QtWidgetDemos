@@ -21,10 +21,10 @@ public:
     static QImage imageFrom(const QString &base64);
 
     //汉字转base64编码  重载
-    QString base64From(const QString &text);
+    static QString base64From(const QString &text);
 
     //base64编码转汉字
-    QString textFrom(const QString &base64);
+    static QString textFrom(const QString &base64);
 
     ~Base64Tool();
 

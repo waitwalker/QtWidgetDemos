@@ -185,6 +185,22 @@ MainWindow::MainWindow(QWidget *parent)
         imageLabel->setPixmap(pixMap);
     });
 
+    // 文字转base64
+    connect(textToBase64,&QPushButton::clicked,[=](){
+        if (lineEdit2->text().isEmpty()) {
+            qDebug()<<"请输入源文字";
+            return ;
+        }
+
+        QString base64 = Base64Tool::base64From(lineEdit2->text());
+        if (base64.isEmpty()) {
+            qDebug()<<"源文字为空或错误";
+            return ;
+        }
+        textLabel->setText(base64);
+
+    });
+
     // 清空数据按钮
     connect(clearDataButton,&QPushButton::clicked,[=](){
         lineEdit->clear();
