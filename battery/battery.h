@@ -16,9 +16,15 @@ public:
     explicit Battery(QWidget *parent = nullptr);
 
     ~Battery();
+    // 重写父类中的绘制虚函数
+    virtual void paintEvent(QPaintEvent *event);
+
 
 private:
     Ui::Battery *ui;
+
+    // 绘制边框
+    void drawBorder(QPainter *painter);
 };
 
 #endif // BATTERY_H
