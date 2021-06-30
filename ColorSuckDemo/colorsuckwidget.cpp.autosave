@@ -1,0 +1,38 @@
+#include "colorsuckwidget.h"
+#include "ui_colorsuckwidget.h"
+//ColorWidget *ColorWidget::instance = 0;
+//ColorWidget *ColorWidget::Instance()
+//{
+//    if (!instance) {
+//        static QMutex mutex;
+//        QMutexLocker locker(&mutex);
+//        if (!instance) {
+//            instance = new ColorWidget;
+//        }
+//    }
+
+//    return instance;
+//}
+ColorSuckWidget *ColorSuckWidget::instance = 0;
+ColorSuckWidget *ColorSuckWidget::sharedInstance()
+{
+    if (!instance) {
+        // 同步机制
+        static QMutex mutex;
+        QMutexLocker locker(&mutex);
+        i
+    }
+       
+}
+
+ColorSuckWidget::ColorSuckWidget(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::ColorSuckWidget)
+{
+    ui->setupUi(this);
+}
+
+ColorSuckWidget::~ColorSuckWidget()
+{
+    delete ui;
+}
