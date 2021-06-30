@@ -28,6 +28,9 @@ private:
 
     // 绘制背景
     void drawBackground(QPainter *painter);
+
+    // 绘制电池头部
+    void drawHeader(QPainter *painter);
 };
 
 #endif // BATTERY_H

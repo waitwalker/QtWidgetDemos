@@ -22,8 +22,9 @@ void Battery::paintEvent(QPaintEvent *event) {
 
     //绘制背景
     drawBackground(&painter);
+
     //绘制头部
-    //drawHead(&painter);
+    drawHeader(&painter);
 }
 
 void Battery::drawBorder(QPainter *painter)
@@ -36,7 +37,7 @@ void Battery::drawBorder(QPainter *painter)
     QPointF topLeft(2,2);
     QPointF bottomRight(batteryWidth,300);
     QRectF rectF = QRectF(topLeft,bottomRight);
-    painter->setPen(QPen(QColor(255,255,255,100),2));
+    painter->setPen(QPen(QColor(255,255,255,100),10));
     painter->setBrush(Qt::NoBrush);
     painter->drawRoundedRect(rectF,10,15);
     painter->restore();
@@ -48,7 +49,7 @@ void Battery::drawBackground(QPainter *painter)
 
     double batteryWidth = 600.0 - 10;
 
-    // 绘制电池边框
+    // 绘制电池背景
     QPointF topLeft(12,12);
     QPointF bottomRight(batteryWidth,300 - 10);
     QRectF rectF = QRectF(topLeft,bottomRight);
@@ -61,38 +62,24 @@ void Battery::drawBackground(QPainter *painter)
     painter->restore();
 }
 
-/*
-void Battery::drawBg(QPainter *painter)
+void Battery::drawHeader(QPainter *painter)
 {
-    if (value == minValue) {
-        return;
-    }
-
     painter->save();
+    double batteryWidth = 50.0;
 
-    QLinearGradient batteryGradient(QPointF(0, 0), QPointF(0, height()));
-    if (currentValue <= alarmValue) {
-        batteryGradient.setColorAt(0.0, alarmColorStart);
-        batteryGradient.setColorAt(1.0, alarmColorEnd);
-    } else {
-        batteryGradient.setColorAt(0.0, normalColorStart);
-        batteryGradient.setColorAt(1.0, normalColorEnd);
-    }
-
-    int margin = qMin(width(), height()) / 20;
-    double unit = (batteryRect.width() - (margin * 2)) / 100;
-    double width = currentValue * unit;
-    QPointF topLeft(batteryRect.topLeft().x() + margin, batteryRect.topLeft().y() + margin);
-    QPointF bottomRight(width + margin + borderWidth, batteryRect.bottomRight().y() - margin);
-    QRectF rect(topLeft, bottomRight);
-
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(batteryGradient);
-    painter->drawRoundedRect(rect, bgRadius, bgRadius);
-
+    // 绘制电池头
+    QPointF topLeft(600 + 5,(300 - 100) / 2);
+    QPointF bottomRight(600 + batteryWidth + 5,(300 - 100) / 2 +100);
+    QRectF rectF = QRectF(topLeft,bottomRight);
+    QBrush brush;
+    brush.setColor(QColor(255,255,255,100));
+    brush.setStyle(Qt::SolidPattern);
+    painter->setBrush(brush);
+    painter->drawRoundedRect(rectF,10,15);
     painter->restore();
 }
 
+/*
 void Battery::drawHead(QPainter *painter)
 {
     painter->save();
