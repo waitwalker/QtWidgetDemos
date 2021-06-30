@@ -21,7 +21,7 @@ void Battery::paintEvent(QPaintEvent *event) {
     drawBorder(&painter);
 
     //绘制背景
-    //drawBg(&painter);
+    drawBackground(&painter);
     //绘制头部
     //drawHead(&painter);
 }
@@ -45,6 +45,20 @@ void Battery::drawBorder(QPainter *painter)
 void Battery::drawBackground(QPainter *painter)
 {
     painter->save();
+
+    double batteryWidth = 600.0 - 10;
+
+    // 绘制电池边框
+    QPointF topLeft(12,12);
+    QPointF bottomRight(batteryWidth,300 - 10);
+    QRectF rectF = QRectF(topLeft,bottomRight);
+    painter->setPen(QPen(QColor(5,100,155,100),5));
+    QBrush brush;
+    brush.setColor(QColor(0,255,0,120));
+    brush.setStyle(Qt::SolidPattern);
+    painter->setBrush(brush);
+    painter->drawRoundedRect(rectF,10,15);
+    painter->restore();
 }
 
 /*
