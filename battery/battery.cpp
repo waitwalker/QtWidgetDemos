@@ -36,27 +36,18 @@ void Battery::drawBorder(QPainter *painter)
     QPointF topLeft(2,2);
     QPointF bottomRight(batteryWidth,300);
     QRectF rectF = QRectF(topLeft,bottomRight);
-    painter->setPen(QPen(QColor(0,0,255,100),2));
+    painter->setPen(QPen(QColor(255,255,255,100),2));
     painter->setBrush(Qt::NoBrush);
     painter->drawRoundedRect(rectF,10,15);
     painter->restore();
 }
 
-/*
-void Battery::drawBorder(QPainter *painter)
+void Battery::drawBackground(QPainter *painter)
 {
-    //绘制电池边框
-    QPointF topLeft(borderWidth, borderWidth);
-    QPointF bottomRight(batteryWidth, height() - borderWidth);
-    batteryRect = QRectF(topLeft, bottomRight);
-
-    painter->setPen(QPen(borderColorStart, borderWidth));
-    painter->setBrush(Qt::NoBrush);
-    painter->drawRoundedRect(batteryRect, borderRadius, borderRadius);
-
-    painter->restore();
+    painter->save();
 }
 
+/*
 void Battery::drawBg(QPainter *painter)
 {
     if (value == minValue) {

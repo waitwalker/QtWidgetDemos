@@ -25,6 +25,9 @@ private:
 
     // 绘制边框
     void drawBorder(QPainter *painter);
+
+    // 绘制背景
+    void drawBackground(QPainter *painter);
 };
 
 #endif // BATTERY_H
