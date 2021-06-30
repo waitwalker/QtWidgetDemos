@@ -30,7 +30,7 @@ public:
         Battery->resize(806, 639);
         label = new QLabel(Battery);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(100, 150, 60, 16));
+        label->setGeometry(QRect(100, 150, 141, 31));
         horizontalSlider = new QSlider(Battery);
         horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
         horizontalSlider->setGeometry(QRect(0, 450, 581, 101));

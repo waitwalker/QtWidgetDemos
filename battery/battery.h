@@ -20,8 +20,12 @@ public:
     virtual void paintEvent(QPaintEvent *event);
 
 
+    double getCurrentWidth() const;
+    void setCurrentWidth(double newCurrentWidth);
+
 private:
     Ui::Battery *ui;
+    double currentWidth;
 
     // 绘制边框
     void drawBorder(QPainter *painter);

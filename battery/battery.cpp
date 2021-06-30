@@ -8,12 +8,21 @@ Battery::Battery(QWidget *parent) :
     ui(new Ui::Battery)
 {
     ui->setupUi(this);
-    ui->label->setText("电池");
+
+    currentWidth = (600 - 20) * 0.3;
+
+    ui->label->setText("电池电量:30");
+    ui->horizontalSlider->setValue(30);
     ui->horizontalSlider->setMaximum(100);
     ui->horizontalSlider->setMinimum(0);
 
     connect(ui->horizontalSlider,&QSlider::valueChanged,[=](int value){
         qDebug()<<"current value:"<<value;
+        currentWidth = (600 - 20) * value / 100;
+        QString str = QString("电池电量:") + QString::number(value);
+
+        ui->label->setText(str);
+        this->update();
     });
 }
 
@@ -35,6 +44,16 @@ void Battery::paintEvent(QPaintEvent *event) {
     drawHeader(&painter);
 }
 
+double Battery::getCurrentWidth() const
+{
+    return currentWidth;
+}
+
+void Battery::setCurrentWidth(double newCurrentWidth)
+{
+    currentWidth = newCurrentWidth;
+}
+
 void Battery::drawBorder(QPainter *painter)
 {
     painter->save();
@@ -54,15 +73,16 @@ void Battery::drawBackground(QPainter *painter)
 {
     painter->save();
 
-    double batteryWidth = 600.0 - 10;
-
     // 绘制电池背景
-    QPointF topLeft(12,12);
-    QPointF bottomRight(batteryWidth,300 - 10);
-    QRectF rectF = QRectF(topLeft,bottomRight);
+    QRectF rectF = QRectF(10, 10, currentWidth, 300 - 20);
     painter->setPen(QPen(QColor(5,100,155,100),5));
     QBrush brush;
-    brush.setColor(QColor(0,255,0,120));
+    if (currentWidth / (600 - 20) > 0.25) {
+        brush.setColor(QColor(0,255,0,120));
+    } else {
+        brush.setColor(QColor(204, 38, 38));
+    }
+
     brush.setStyle(Qt::SolidPattern);
     painter->setBrush(brush);
     painter->drawRoundedRect(rectF,10,15);
