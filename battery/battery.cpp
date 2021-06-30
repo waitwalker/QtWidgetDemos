@@ -30,7 +30,6 @@ void Battery::paintEvent(QPaintEvent *event) {
 void Battery::drawBorder(QPainter *painter)
 {
     painter->save();
-    double headerWidth = 60.0;
     double batteryWidth = 600.0;
 
     // 绘制电池边框
@@ -78,31 +77,6 @@ void Battery::drawHeader(QPainter *painter)
     painter->drawRoundedRect(rectF,10,15);
     painter->restore();
 }
-
-/*
-void Battery::drawHead(QPainter *painter)
-{
-    painter->save();
-
-    QPointF headRectTopLeft(batteryRect.topRight().x(), height() / 3);
-    QPointF headRectBottomRight(width(), height() - height() / 3);
-    QRectF headRect(headRectTopLeft, headRectBottomRight);
-
-    QLinearGradient headRectGradient(headRect.topLeft(), headRect.bottomLeft());
-    headRectGradient.setColorAt(0.0, borderColorStart);
-    headRectGradient.setColorAt(1.0, borderColorEnd);
-
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(headRectGradient);
-    painter->drawRoundedRect(headRect, headRadius, headRadius);
-
-    painter->restore();
-}
- *
- *
- *
- *
-*/
 
 Battery::~Battery()
 {
