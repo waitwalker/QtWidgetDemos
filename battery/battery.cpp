@@ -1,12 +1,20 @@
 #include "battery.h"
 #include "ui_battery.h"
 #include <QPainter>
+#include <QSlider>
 
 Battery::Battery(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Battery)
 {
     ui->setupUi(this);
+    ui->label->setText("电池");
+    ui->horizontalSlider->setMaximum(100);
+    ui->horizontalSlider->setMinimum(0);
+
+    connect(ui->horizontalSlider,&QSlider::valueChanged,[=](int value){
+        qDebug()<<"current value:"<<value;
+    });
 }
 
 void Battery::paintEvent(QPaintEvent *event) {

@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -20,15 +21,20 @@ class Ui_Battery
 {
 public:
     QLabel *label;
+    QSlider *horizontalSlider;
 
     void setupUi(QWidget *Battery)
     {
         if (Battery->objectName().isEmpty())
             Battery->setObjectName(QString::fromUtf8("Battery"));
-        Battery->resize(400, 300);
+        Battery->resize(806, 639);
         label = new QLabel(Battery);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(100, 150, 60, 16));
+        horizontalSlider = new QSlider(Battery);
+        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
+        horizontalSlider->setGeometry(QRect(0, 450, 581, 101));
+        horizontalSlider->setOrientation(Qt::Horizontal);
 
         retranslateUi(Battery);
 
