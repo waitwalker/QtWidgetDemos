@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QPushButton>
+#include "colorsuckwidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     QPushButton *button = new QPushButton("弹出",this);
     connect(button,&QPushButton::clicked,[=](){
         qDebug()<<"弹出";
+        ColorSuckWidget::sharedInstance()->show();
     });
 }
 

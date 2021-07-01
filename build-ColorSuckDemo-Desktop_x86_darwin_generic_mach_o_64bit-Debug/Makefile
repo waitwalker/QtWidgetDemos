@@ -52,10 +52,14 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../ColorSuckDemo/main.cpp \
-		../ColorSuckDemo/mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+SOURCES       = ../ColorSuckDemo/colorsuckwidget.cpp \
+		../ColorSuckDemo/main.cpp \
+		../ColorSuckDemo/mainwindow.cpp moc_colorsuckwidget.cpp \
+		moc_mainwindow.cpp
+OBJECTS       = colorsuckwidget.o \
+		main.o \
 		mainwindow.o \
+		moc_colorsuckwidget.o \
 		moc_mainwindow.o
 DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/device_config.prf \
@@ -217,6 +221,7 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		../ColorSuckDemo/.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -245,7 +250,9 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exceptions.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
-		../ColorSuckDemo/ColorSuckDemo.pro ../ColorSuckDemo/mainwindow.h ../ColorSuckDemo/main.cpp \
+		../ColorSuckDemo/ColorSuckDemo.pro ../ColorSuckDemo/colorsuckwidget.h \
+		../ColorSuckDemo/mainwindow.h ../ColorSuckDemo/colorsuckwidget.cpp \
+		../ColorSuckDemo/main.cpp \
 		../ColorSuckDemo/mainwindow.cpp
 QMAKE_TARGET  = ColorSuckDemo
 DESTDIR       = 
@@ -255,7 +262,7 @@ TARGET        = ColorSuckDemo.app/Contents/MacOS/ColorSuckDemo
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 11.3
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-ColorSuckDemo-Desktop_x86_darwin_generic_mach_o_64bit-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
@@ -266,7 +273,7 @@ include /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-ColorSuckDemo.app/Contents/MacOS/ColorSuckDemo: ui_mainwindow.h $(OBJECTS)  
+ColorSuckDemo.app/Contents/MacOS/ColorSuckDemo: ui_colorsuckwidget.h ui_mainwindow.h $(OBJECTS)  
 	@test -d ColorSuckDemo.app/Contents/MacOS/ || mkdir -p ColorSuckDemo.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -430,6 +437,7 @@ Makefile: ../ColorSuckDemo/ColorSuckDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -623,6 +631,7 @@ Makefile: ../ColorSuckDemo/ColorSuckDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf:
@@ -685,9 +694,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../ColorSuckDemo/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../ColorSuckDemo/main.cpp ../ColorSuckDemo/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../ColorSuckDemo/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../ColorSuckDemo/colorsuckwidget.h ../ColorSuckDemo/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../ColorSuckDemo/colorsuckwidget.cpp ../ColorSuckDemo/main.cpp ../ColorSuckDemo/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../ColorSuckDemo/colorsuckwidget.ui ../ColorSuckDemo/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -697,6 +706,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r ColorSuckDemo.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -721,9 +731,16 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_colorsuckwidget.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_colorsuckwidget.cpp moc_mainwindow.cpp
+moc_colorsuckwidget.cpp: ../ColorSuckDemo/colorsuckwidget.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc
+	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc $(DEFINES) --include /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-ColorSuckDemo-Desktop_x86_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/ColorSuckDemo -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/usr/local/Cellar/qt/6.1.0_1/lib ../ColorSuckDemo/colorsuckwidget.h -o moc_colorsuckwidget.cpp
+
 moc_mainwindow.cpp: ../ColorSuckDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -735,9 +752,13 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_colorsuckwidget.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_colorsuckwidget.h ui_mainwindow.h
+ui_colorsuckwidget.h: ../ColorSuckDemo/colorsuckwidget.ui \
+		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/uic
+	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/uic ../ColorSuckDemo/colorsuckwidget.ui -o ui_colorsuckwidget.h
+
 ui_mainwindow.h: ../ColorSuckDemo/mainwindow.ui \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/uic
 	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/uic ../ColorSuckDemo/mainwindow.ui -o ui_mainwindow.h
@@ -754,6 +775,12 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
+colorsuckwidget.o: ../ColorSuckDemo/colorsuckwidget.cpp ../ColorSuckDemo/colorsuckwidget.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		ui_colorsuckwidget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o colorsuckwidget.o ../ColorSuckDemo/colorsuckwidget.cpp
+
 main.o: ../ColorSuckDemo/main.cpp ../ColorSuckDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -766,8 +793,14 @@ mainwindow.o: ../ColorSuckDemo/mainwindow.cpp ../ColorSuckDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		ui_mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QPushButton \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qpushbutton.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../ColorSuckDemo/colorsuckwidget.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../ColorSuckDemo/mainwindow.cpp
+
+moc_colorsuckwidget.o: moc_colorsuckwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_colorsuckwidget.o moc_colorsuckwidget.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
