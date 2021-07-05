@@ -23,7 +23,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    CountWidget *colorWidget;
+    CountWidget *countWidget;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -34,10 +34,10 @@ public:
         MainWindow->resize(800, 600);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        colorWidget = new CountWidget(centralwidget);
-        colorWidget->setObjectName(QString::fromUtf8("colorWidget"));
-        colorWidget->setGeometry(QRect(50, 20, 120, 80));
-        colorWidget->setMaximumSize(QSize(120, 80));
+        countWidget = new CountWidget(centralwidget);
+        countWidget->setObjectName(QString::fromUtf8("countWidget"));
+        countWidget->setGeometry(QRect(50, 20, 120, 80));
+        countWidget->setMaximumSize(QSize(120, 80));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));

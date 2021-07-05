@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="CountWidget" name="colorWidget" native="true">
+   <widget class="CountWidget" name="countWidget" native="true">
     <property name="geometry">
      <rect>
       <x>50</x>
