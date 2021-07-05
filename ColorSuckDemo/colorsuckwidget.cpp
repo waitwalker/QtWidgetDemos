@@ -1,6 +1,7 @@
 #include "colorsuckwidget.h"
 #include "ui_colorsuckwidget.h"
 
+#include <QMouseEvent>
 #include <QTimer>
 // 单例模式
 ColorSuckWidget *ColorSuckWidget::instance = 0;
@@ -94,13 +95,54 @@ ColorSuckWidget::ColorSuckWidget(QWidget *parent) :
 
     timer = new QTimer(this);
     timer->setInterval(100);
+    timer->start();
     connect(timer,&QTimer::timeout, [=](){
+        qDebug()<<"监听事件";
+        if (!pressed) {
+            return;
+        }
+
+        int x = QCursor::pos().x();
+        int y = QCursor::pos().y();
+        txtPoint->setText(tr("x:%1 y%2").arg(x).arg(y));
+
+#if (QT_VERSION < QT_VERSION_CHECK(5,0,0))
+        QPixmap pixMap = QPixmap::grabWindow(qApp->desktop()->winId(),x,y,2,2);
+#else
+        QScreen *screen = qApp->primaryScreen();
+        // 根据坐标获取指定屏幕
+        QPixmap pixMap = screen->grabWindow(0,x,y,2,2);
+#endif
+        int red, green, blue;
+        QString strDecimalValue, strHex;
+        if (!pixMap.isNull()) {
+            QImage image = pixMap.toImage();
+            if (!image.isNull()) {
+                QColor color = image.pixel(0,0);
+                red = color.red();
+                green = color.green();
+                blue = color.blue();
+                QString strRed = tr("%1").arg(red & 0xFF,2,16,QChar('0'));
+                QString strGreen = tr("%1").arg(green & 0xFF,2,16,QChar('0'));
+                QString strBlue = tr("%1").arg(blue & 0xFF,2,16,QChar('0'));
+
+                strDecimalValue = tr("%1, %2, %3").arg(red).arg(green).arg(blue);
+                strHex = tr("#%1%2%3").arg(strRed.toUpper()).arg(strGreen.toUpper()).arg(strBlue.toUpper());
+
+            }
+        }
+
+        // 根据背景色自动计算合适的前景色
+        QColor color(red,green,blue);
+        double gray = (0.299 * color.red() + 0.587 * color.green() + 0.114 * color.blue()) / 255;
+        QColor textColor = gray > 0.5 ? Qt::black: Qt::white;
+
+        QString str = tr("background:rgb(%1);color:rgb(%2)").arg(strDecimalValue).arg(textColor.name());
+        labColor->setStyleSheet(str);
+        txtRGB->setText(strDecimalValue);
+        txtWeb->setText(strHex);
 
     });
-
-
-
-
 }
 
 ColorSuckWidget::~ColorSuckWidget()
@@ -110,12 +152,14 @@ ColorSuckWidget::~ColorSuckWidget()
 
 void ColorSuckWidget::mousePressEvent(QMouseEvent *event)
 {
-
+    if (labColor->rect().contains(event->pos())) {
+        pressed = true;
+    }
 }
 
 void ColorSuckWidget::mouseReleaseEvnet(QMouseEvent *event)
 {
-
+    pressed = false;
 }
 
 void ColorSuckWidget::showColorValue()
