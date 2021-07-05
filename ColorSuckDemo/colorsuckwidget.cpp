@@ -21,9 +21,45 @@ ColorSuckWidget::ColorSuckWidget(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("颜色选择");
+    // 网格布局
+    gridLayout = new QGridLayout(this);
+    gridLayout->setSpacing(6);
+    gridLayout->setContentsMargins(11,11,11,11);
+
+    // 垂直布局
+    verticalLayout = new QVBoxLayout();
+    verticalLayout->setSpacing(0);
+
+    labColor = new QLabel(this);
+    labColor->setText("+");
+    labColor->setStyleSheet("background-color:rgb(255,107,107);color:rgb(250,250,250)");
+    label->setAlignment(Qt::AlignCenter);
+    QFont font;
+    font.setPixelSize(35);
+    font.setBold(true);
+    labColor->setFont(font);
+
+
+
+
 }
 
 ColorSuckWidget::~ColorSuckWidget()
 {
     delete ui;
+}
+
+void ColorSuckWidget::mousePressEvent(QMouseEvent *event)
+{
+
+}
+
+void ColorSuckWidget::mouseReleaseEvnet(QMouseEvent *event)
+{
+
+}
+
+void ColorSuckWidget::showColorValue()
+{
+
 }

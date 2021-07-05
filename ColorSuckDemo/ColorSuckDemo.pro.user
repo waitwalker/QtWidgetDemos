@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.15.1, 2021-06-30T14:03:06. -->
+<!-- Written by QtCreator 4.15.1, 2021-07-02T15:49:55. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -518,7 +518,6 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-ColorSuckDemo-Qt_6_2_0_for_macOS-Debug/ColorSuckDemo.app/Contents/MacOS</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
