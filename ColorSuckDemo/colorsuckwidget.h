@@ -38,6 +38,7 @@ private:
     QLabel *labColor;
     QLabel *label;
     QLabel *labWeb;
+    QLineEdit *txtWeb;
     QLabel *labRGB;
     QLineEdit *txtRGB;
     QLabel *labPoint;
