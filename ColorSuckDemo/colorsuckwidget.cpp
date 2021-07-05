@@ -113,7 +113,7 @@ ColorSuckWidget::ColorSuckWidget(QWidget *parent) :
         // 根据坐标获取指定屏幕
         QPixmap pixMap = screen->grabWindow(0,x,y,2,2);
 #endif
-        int red, green, blue;
+        int red = 0, green = 0, blue = 0;
         QString strDecimalValue, strHex;
         if (!pixMap.isNull()) {
             QImage image = pixMap.toImage();
