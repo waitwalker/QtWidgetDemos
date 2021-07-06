@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include <qtablewidget.h>
 #include <QHeaderView>
+#include <qlineedit.h>
 
 CountWidget::CountWidget(QWidget *parent) :
     QWidget(parent),
@@ -35,7 +36,32 @@ CountWidget::CountWidget(QWidget *parent) :
     for (int i = 0; i < columnCount ; i++ ) {
         tableWidget->setColumnWidth(i, columnWidth[i]);
     }
-    vLayout->addWidget(tableWidget);
+    vLayout->addWidget(tableWidget,3);
+
+    QGridLayout *gridLayout = new QGridLayout();
+    vLayout->addLayout(gridLayout,1);
+
+    QLabel *fileNumLabel = new QLabel();
+    fileNumLabel->setText("文件数");
+    gridLayout->addWidget(fileNumLabel,0,0,1,1);
+
+    QLineEdit *fileNumEdit = new QLineEdit();
+    gridLayout->addWidget(fileNumEdit,0,1,1,1);
+
+    QLabel *codeNumLabel = new QLabel();
+    codeNumLabel->setText("代码行数");
+    gridLayout->addWidget(codeNumLabel,0,2,1,1);
+
+    QLineEdit *codeNumEdit = new QLineEdit();
+    codeNumEdit->setText("0%");
+    gridLayout->addWidget(codeNumEdit,0,3,1,1);
+
+    QLabel *singleFileDirLabel = new QLabel();
+    singleFileDirLabel->setText("单个文件目录");
+    gridLayout->addWidget(singleFileDirLabel,0,4,1,1);
+
+    QLineEdit *singleFileDirEdit = new QLineEdit();
+    gridLayout->addWidget(singleFileDirEdit,0,5,1,3);
 
 
 }
