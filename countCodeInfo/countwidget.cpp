@@ -5,6 +5,7 @@
 #include <QHeaderView>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+#include <QFileDialog>
 
 CountWidget::CountWidget(QWidget *parent) :
     QWidget(parent),
@@ -123,6 +124,38 @@ CountWidget::CountWidget(QWidget *parent) :
     QPushButton *clearButton = new QPushButton("清空结果");
     gridLayout->addWidget(clearButton,2,6,1,1);
 
+    this->fileNumLabel = fileNumLabel;
+    this->fileNumEdit = fileNumEdit;
+    this->codeNumLabel = codeNumLabel;
+    this->codeNumEdit = codeNumEdit;
+    this->singleFileDirLabel = singleFileDirLabel;
+    this->singleFileDirEdit = singleFileDirEdit;
+    this->openSingleFileButton = openSingleFileButton;
+
+    this->byteNumLabel = byteNumLabel;
+    this->byteNumEdit = byteNumEdit;
+    this->noteNumLabel = noteCodeNumLabel;
+    this->noteNumEdit = noteCodeNumEdit;
+    this->allFileDirLabel = allFileDirLabel;
+    this->allFileDirEdit = allFileDirEdit;
+    this->openAllDirButton = openAllFileButton;
+
+    this->allLineNumLabel = lineNumLabel;
+    this->allLineNumEdit = lineNumEdit;
+    this->blankNumLabel = blankLineNumLabel;
+    this->blankNumEdit = blankNumEdit;
+    this->filterLabel = filtLabel;
+    this->filterEdit = filtEdit;
+    this->clearButton = clearButton;
+
+    connect(this->openSingleFileButton,&QPushButton::clicked,[=](){
+        QString filter = QString("代码文件(%1)").arg(filtEdit->text());
+        QStringList files = QFileDialog::getOpenFileNames(this,"选择文件", "./", filter);
+        if (files.size() > 0) {
+            this->singleFileDirEdit->setText(files.join("1"));
+
+        }
+    });
 
 }
 
