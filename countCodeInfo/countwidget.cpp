@@ -6,6 +6,7 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <QFileDialog>
+#include <QtGlobal>
 
 CountWidget::CountWidget(QWidget *parent) :
     QWidget(parent),
@@ -124,6 +125,7 @@ CountWidget::CountWidget(QWidget *parent) :
     QPushButton *clearButton = new QPushButton("清空结果");
     gridLayout->addWidget(clearButton,2,6,1,1);
 
+    this->tableWidget = tableWidget;
     this->fileNumLabel = fileNumLabel;
     this->fileNumEdit = fileNumEdit;
     this->codeNumLabel = codeNumLabel;
@@ -152,9 +154,34 @@ CountWidget::CountWidget(QWidget *parent) :
         QString filter = QString("代码文件(%1)").arg(filtEdit->text());
         QStringList files = QFileDialog::getOpenFileNames(this,"选择文件", "./", filter);
         if (files.size() > 0) {
-            this->singleFileDirEdit->setText(files.join("1"));
 
+            countCode(files);
+            this->singleFileDirEdit->setText(files.join("1"));
         }
+    });
+
+    connect(this->openAllDirButton,&QPushButton::clicked,[=](){
+        QString path = QFileDialog::getExistingDirectory(this,"选择目录", "./", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+        if (!path.isEmpty()) {
+            listFile.clear();
+            countCode(path);
+            countCode(listFile);
+            this->allFileDirEdit->setText(path);
+        }
+    });
+
+    connect(this->clearButton,&QPushButton::clicked,[=](){
+        this->fileNumEdit->setText("0");
+        this->codeNumEdit->setText("0%");
+        this->singleFileDirEdit->clear();
+
+        this->byteNumEdit->setText("0");
+        this->noteNumEdit->setText("0%");
+        this->allFileDirEdit->clear();
+
+        this->allLineNumEdit->setText("0");
+        this->blankNumEdit->setText("0%");
+        this->tableWidget->setRowCount(0);
     });
 
 }
@@ -162,4 +189,159 @@ CountWidget::CountWidget(QWidget *parent) :
 CountWidget::~CountWidget()
 {
     delete ui;
+}
+
+bool CountWidget::checkFile(const QString &fileName)
+{
+    if (fileName.startsWith("moc_") || fileName.startsWith("ui_") || fileName.startsWith("qrc_")) {
+        return false;
+    }
+    QFileInfo fileInfo(fileName);
+    QString suffix = "*." + fileInfo.suffix();
+    QString filter = this->filterEdit->text().trimmed();
+    QStringList filters = filter.split(" ");
+    return filters.contains(suffix);
+}
+
+void CountWidget::countCode(const QString &filePath)
+{
+    QDir dir(filePath);
+    QFileInfoList fileInfos = dir.entryInfoList();
+    foreach(QFileInfo fileInfo, fileInfos) {
+        QString fileName = fileInfo.fileName();
+        if (fileInfo.isFile()) {
+            if (checkFile(fileName)) {
+                listFile<<fileInfo.filePath();
+            }
+        } else {
+            if (fileName == "." || fileName == "..") {
+                continue;
+            }
+            // 递归查找文件
+            countCode(fileInfo.absoluteFilePath());
+        }
+    }
+}
+
+void CountWidget::countCode(const QStringList &files)
+{
+    int lineCode;
+    int lineBlank;
+    int linetNote;
+    int count = files.count();
+    this->clearButton->click();
+    this->tableWidget->setRowCount(count);
+
+    quint32 totalLines = 0;
+    quint32 totalBytes = 0;
+    quint32 totalCodes = 0;
+    quint32 totalNote = 0;
+    quint32 totalBlank = 0;
+
+    for (int i = 0; i < count; i++) {
+        QFileInfo fileInfo(files[i]);
+        countCode(fileInfo.filePath(), lineCode, lineBlank, linetNote);
+        int lineAll = lineCode + lineBlank + linetNote;
+        QTableWidgetItem *itemName = new QTableWidgetItem;
+        itemName->setText(fileInfo.fileName());
+
+        QTableWidgetItem *itemSuffex = new QTableWidgetItem;
+        itemSuffex->setText(fileInfo.suffix());
+
+        QTableWidgetItem *itemSize = new QTableWidgetItem;
+        itemSize->setText(QString::number(fileInfo.size()));
+
+        QTableWidgetItem *itemLine = new QTableWidgetItem;
+        itemLine->setText(QString::number(lineAll));
+
+        QTableWidgetItem *itemCode = new QTableWidgetItem;
+        itemCode->setText(QString::number(lineCode));
+
+        QTableWidgetItem *itemNote = new QTableWidgetItem;
+        itemNote->setText(QString::number(linetNote));
+
+        QTableWidgetItem *itemBlank = new QTableWidgetItem;
+        itemBlank->setText(QString::number(lineBlank));
+
+        QTableWidgetItem *itemPath = new QTableWidgetItem;
+        itemPath->setText(fileInfo.filePath());
+
+        itemSuffex->setTextAlignment(Qt::AlignCenter);
+        itemSize->setTextAlignment(Qt::AlignCenter);
+        itemLine->setTextAlignment(Qt::AlignCenter);
+        itemCode->setTextAlignment(Qt::AlignCenter);
+        itemNote->setTextAlignment(Qt::AlignCenter);
+        itemBlank->setTextAlignment(Qt::AlignCenter);
+
+        this->tableWidget->setItem(i, 0, itemName);
+        this->tableWidget->setItem(i, 1, itemSuffex);
+        this->tableWidget->setItem(i, 2, itemSize);
+        this->tableWidget->setItem(i, 3, itemLine);
+        this->tableWidget->setItem(i, 4, itemCode);
+        this->tableWidget->setItem(i, 5, itemNote);
+        this->tableWidget->setItem(i, 6, itemBlank);
+        this->tableWidget->setItem(i, 7, itemPath);
+
+        totalBytes +=fileInfo.size();
+        totalLines += lineAll;
+        totalCodes += lineCode;
+        totalNote += linetNote;
+        totalBlank += lineBlank;
+
+        if (i % 100 == 0) {
+            qApp->processEvents();
+        }
+
+        // 显示统计结果
+        listFile.clear();
+        this->fileNumEdit->setText(QString::number(count));
+        this->byteNumEdit->setText(QString::number(totalBytes));
+        this->allLineNumEdit->setText(QString::number(totalLines));
+
+        this->codeNumEdit->setText(QString::number(totalLines));
+        this->noteNumEdit->setText(QString::number(totalNote));
+        this->blankNumEdit->setText(QString::number(totalBlank));
+    }
+}
+
+void CountWidget::countCode(const QString &fileName, int &lineCode, int &lineBlank, int &lineNote)
+{
+    lineCode = lineBlank = lineNote = 0;
+    QFile file(fileName);
+    if (file.open(QFile::ReadOnly)) {
+        QTextStream out(&file);
+        QString line;
+        bool isNote = false;
+        while (!out.atEnd()) {
+            // 一行一行读
+            line = out.readLine();
+            // 移除前面的空行
+            if(line.startsWith(" ")) {
+                line.remove(" ");
+            }
+
+            // 判断当前行是否是注释
+            if (line.startsWith("/")) {
+                isNote = true;
+            }
+
+            // 注释部分
+            if (isNote) {
+                lineNote++;
+            } else {
+                if (line.startsWith("//")) {
+                    lineNote++;
+                } else if (line.isEmpty()) {
+                    lineBlank++;
+                } else {
+                    lineCode++;
+                }
+            }
+
+            // 注释结束
+            if (line.endsWith("*/")) {
+                isNote = false;
+            }
+        }
+    }
 }

@@ -59,6 +59,14 @@ private:
 
     QPushButton *clearButton;
 
+    QStringList listFile;
+
+    bool checkFile(const QString &fileName);
+    void countCode(const QString &filePath);
+    void countCode(const QStringList &files);
+    void countCode(const QString &fileName, int &lineCode, int &lineBlank, int &lineNote);
+
+
 };
 
 #endif // COUNTWIDGET_H
