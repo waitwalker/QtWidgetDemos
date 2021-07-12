@@ -24,20 +24,29 @@ void Board::paintEvent(QPaintEvent *event)
 
     // 画10条横线
     for (int i = 1; i < 11 ; i++ ) {
+        if (i == 1 || i == 10) {
+            painter.setPen(QPen(QColor(255,255,255),4));
+        } else {
+            painter.setPen(QPen(QColor(255,255,255),1));
+        }
         painter.drawLine(QPoint(d,i * d),QPoint(9 * d, i * d));
     }
 
     // 画9条竖线
     for (int i = 1; i < 10 ; i++) {
+
         if (i == 1 || i == 9) {
+            painter.setPen(QPen(QColor(255,255,255),4));
             painter.drawLine(QPoint(i * d, d), QPoint(i * d, 10 * d));
         } else {
+            painter.setPen(QPen(QColor(255,255,255),1));
             painter.drawLine(QPoint(i * d, d), QPoint(i * d, 5 * d));
             painter.drawLine(QPoint(i * d, 6 * d), QPoint(i * d, 10 * d));
         }
     }
 
     // 画九宫格
+    painter.setPen(QPen(QColor(255,255,255),1));
     painter.drawLine(QPoint(4 * d, d), QPoint(6 * d, 3 * d));
     painter.drawLine(QPoint(6 * d, d), QPoint(4 * d, 3 * d));
 
