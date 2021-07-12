@@ -44,5 +44,8 @@ void Board::paintEvent(QPaintEvent *event)
     painter.drawLine(QPoint(4 * d, 8 * d), QPoint(6 * d, 10 * d));
     painter.drawLine(QPoint(6 * d, 8 * d), QPoint(4 * d, 10 * d));
 
+    painter.drawText(QPoint(2.5 * d, 5.5 * d),"楚河");
+    painter.drawText(QPoint(7 * d, 5.5 * d),"汉界");
+
 
 }
