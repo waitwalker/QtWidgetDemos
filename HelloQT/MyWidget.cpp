@@ -1,6 +1,7 @@
 #include "MyWidget.h"
 #include "ui_MyWidget.h"
 #include <QPainter>
+#include <QMouseEvent>
 
 MyWidget::MyWidget(QWidget *parent) :
     QWidget(parent),
@@ -23,9 +24,10 @@ void MyWidget::paintEvent(QPaintEvent *event)
     QPen pen;
     pen.setColor(QColor(255,0,0));
 
+#if 0
+
+
     // 设置填充相关属性字段
-    QBrush brush;
-    brush.setColor(QColor(255,255,0));
 
     // 画直线
     painter.drawLine(QPoint(0,0), QPoint(200,200));
@@ -38,4 +40,14 @@ void MyWidget::paintEvent(QPaintEvent *event)
 
     // 绘制圆圈
     painter.drawEllipse(QPoint(250,250),50,50);
+#endif
+    painter.drawEllipse(_point,30,30);
+}
+
+void MyWidget::mousePressEvent(QMouseEvent *event)
+{
+    // 获取鼠标点击的位置
+    _point = event->pos();
+    //update();
+    repaint();
 }

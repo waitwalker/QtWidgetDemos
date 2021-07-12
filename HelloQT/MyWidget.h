@@ -19,6 +19,11 @@ public:
     // 绘制方法
     virtual void paintEvent(QPaintEvent *event);
 
+    // 鼠标按下事件
+    virtual void mousePressEvent(QMouseEvent *event);
+
+    QPoint _point;
+
 private:
     Ui::MyWidget *ui;
 };
