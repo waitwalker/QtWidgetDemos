@@ -108,14 +108,29 @@ void Board::mouseReleaseEvent(QMouseEvent *event)
         }
     } else {
         // 选中棋子之后 可以移动
-        _s[_selectedId]._row = row;
-        _s[_selectedId]._col = col;
-        if (clickedId != -1) {
-            _s[clickedId]._dead = true;
+        // 先判断是否可以走
+        if (canMove(_selectedId, row, col, clickedId)) {
+            _s[_selectedId]._row = row;
+            _s[_selectedId]._col = col;
+            if (clickedId != -1) {
+                _s[clickedId]._dead = true;
+            }
+            _selectedId = -1;
+            update();
         }
-        _selectedId = -1;
-        update();
     }
+}
+
+bool Board::canMove(int moveId, int row, int col, int killId)
+{
+    // 如果选中的棋子颜色和即将被杀掉棋子颜色相同,不能被移动
+    if (_s[moveId]._red == _s[killId]._red) {
+        // 换选择
+        _selectedId = killId;
+        update();
+        return false;
+    }
+    return true;
 }
 
 QPoint Board::center(int row, int col)

@@ -26,6 +26,9 @@ public:
     // 鼠标释放事件 棋子选中
     virtual void mouseReleaseEvent(QMouseEvent *event);
 
+    // 判断棋子是否可以移动
+    bool canMove(int moveId, int row, int col, int killId);
+
     // 棋子半径
     int _r;
 
