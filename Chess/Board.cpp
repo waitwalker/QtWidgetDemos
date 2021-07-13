@@ -86,6 +86,12 @@ QPoint Board::center(int id)
 void Board::drawStone(QPainter &painter, int id)
 {
     qDebug()<<"当前行:"<<_s[id]._row<<"当前列:"<<_s[id]._col;
+    painter.setBrush(QBrush(QColor(155,155,0)));
+    if (_s[id]._red) {
+        painter.setPen(Qt::red);
+    } else {
+        painter.setPen(Qt::black);
+    }
 
     // 根据棋子的行和列坐标 转换成棋盘的像素坐标, 说白了就在这个id位置画一个圆圈
     painter.drawEllipse(center(id), _r, _r);
