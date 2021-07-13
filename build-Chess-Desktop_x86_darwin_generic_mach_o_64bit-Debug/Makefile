@@ -53,10 +53,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Chess/Board.cpp \
+		../Chess/Stone.cpp \
 		../Chess/main.cpp \
 		../Chess/mainwindow.cpp moc_Board.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = Board.o \
+		Stone.o \
 		main.o \
 		mainwindow.o \
 		moc_Board.o \
@@ -221,6 +223,7 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		../Chess/.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -250,7 +253,9 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
 		../Chess/Chess.pro ../Chess/Board.h \
+		../Chess/Stone.h \
 		../Chess/mainwindow.h ../Chess/Board.cpp \
+		../Chess/Stone.cpp \
 		../Chess/main.cpp \
 		../Chess/mainwindow.cpp
 QMAKE_TARGET  = Chess
@@ -261,7 +266,7 @@ TARGET        = Chess.app/Contents/MacOS/Chess
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 11.3
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-Chess-Desktop_x86_darwin_generic_mach_o_64bit-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
@@ -436,6 +441,7 @@ Makefile: ../Chess/Chess.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -629,6 +635,7 @@ Makefile: ../Chess/Chess.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf:
@@ -691,8 +698,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Chess/Board.h ../Chess/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Chess/Board.cpp ../Chess/main.cpp ../Chess/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Chess/Board.h ../Chess/Stone.h ../Chess/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Chess/Board.cpp ../Chess/Stone.cpp ../Chess/main.cpp ../Chess/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Chess/Board.ui ../Chess/mainwindow.ui $(DISTDIR)/
 
 
@@ -703,6 +710,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r Chess.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -733,6 +741,7 @@ compiler_moc_header_clean:
 moc_Board.cpp: ../Chess/Board.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		../Chess/Stone.h \
 		moc_predefs.h \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc
 	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc $(DEFINES) --include /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-Chess-Desktop_x86_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/Chess -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/usr/local/Cellar/qt/6.1.0_1/lib ../Chess/Board.h -o moc_Board.cpp
@@ -774,8 +783,14 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 Board.o: ../Chess/Board.cpp ../Chess/Board.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
-		ui_Board.h
+		../Chess/Stone.h \
+		ui_Board.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPainter \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpainter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Board.o ../Chess/Board.cpp
+
+Stone.o: ../Chess/Stone.cpp ../Chess/Stone.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Stone.o ../Chess/Stone.cpp
 
 main.o: ../Chess/main.cpp ../Chess/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -784,7 +799,8 @@ main.o: ../Chess/main.cpp ../Chess/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qapplication.h \
 		../Chess/Board.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		../Chess/Stone.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Chess/main.cpp
 
 mainwindow.o: ../Chess/mainwindow.cpp ../Chess/mainwindow.h \

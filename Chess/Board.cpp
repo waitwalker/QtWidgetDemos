@@ -7,6 +7,7 @@ Board::Board(QWidget *parent) :
     ui(new Ui::Board)
 {
     ui->setupUi(this);
+    this->_r = 20;
 }
 
 Board::~Board()
@@ -19,8 +20,7 @@ void Board::paintEvent(QPaintEvent *event)
     // 定义画笔
     QPainter painter(this);
 
-    // 棋子直径
-    int d = 50;
+    int d = 40;
 
     // 画10条横线
     for (int i = 1; i < 11 ; i++ ) {
@@ -56,5 +56,30 @@ void Board::paintEvent(QPaintEvent *event)
     painter.drawText(QPoint(2.5 * d, 5.5 * d),"楚河");
     painter.drawText(QPoint(7 * d, 5.5 * d),"汉界");
 
+    // 绘制32颗棋子
+    for (int i = 0; i < 32 ;i++ ) {
+        this->drawStone(painter, i);
+    }
+
 
 }
+
+QPoint Board::center(int row, int col)
+{
+    QPoint ret;
+    ret.setX(col * _r * 2);
+    ret.setY(row * _r * 2);
+    return ret;
+}
+
+void Board::drawStone(QPainter &painter, int id)
+{
+    qDebug()<<"当前行:"<<_s[id]._row<<"当前列:"<<_s[id]._col;
+
+    // 根据棋子的行和列坐标 转换成棋盘的像素坐标
+    painter.drawEllipse(center(_s[id]._row,_s[id]._col), _r, _r);
+
+    // 画文字
+    painter.drawText(center(_s[id]._row,_s[id]._col), "兵");
+}
+

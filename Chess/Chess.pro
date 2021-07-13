@@ -10,11 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     Board.cpp \
+    Stone.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Board.h \
+    Stone.h \
     mainwindow.h
 
 FORMS += \

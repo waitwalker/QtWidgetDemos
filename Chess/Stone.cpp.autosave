@@ -1,0 +1,21 @@
+#include "Stone.h"
+
+Stone::Stone()
+{
+    
+}
+
+Stone::~Stone()
+{
+    
+}
+
+QString Stone::getText()
+{
+    switch (this->_type) {
+    case CHE:
+        return "车";
+    case CHE:
+        return "车";
+    }
+}
