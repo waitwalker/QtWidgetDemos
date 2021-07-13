@@ -97,10 +97,10 @@ void Board::drawStone(QPainter &painter, int id)
     painter.drawEllipse(center(id), _r, _r);
 
     QPoint c = center(id);
-
     QRect rect = QRect(c.x() - _r, c.y() - _r , _r * 2, _r *2);
 
     // 画文字
+    painter.setFont(QFont("system",_r,700));
     painter.drawText(rect, _s[id].getText(),QTextOption(Qt::AlignCenter));
 }
 
