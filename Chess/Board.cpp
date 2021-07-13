@@ -68,6 +68,11 @@ void Board::paintEvent(QPaintEvent *event)
 
 }
 
+void Board::mouseReleaseEvent(QMouseEvent *event)
+{
+
+}
+
 QPoint Board::center(int row, int col)
 {
     QPoint ret;
