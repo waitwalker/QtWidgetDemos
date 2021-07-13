@@ -86,6 +86,7 @@ void Board::mouseReleaseEvent(QMouseEvent *event)
 
     // 判断这个行列值上面有无棋子
     int i;
+    int clickedId = -1;
     for (i = 0; i < 32 ; i++ ) {
         // 当前棋子被选中
         if (_s[i]._row == row && _s[i]._col == col && _s[i]._dead == false) {
@@ -93,9 +94,25 @@ void Board::mouseReleaseEvent(QMouseEvent *event)
         }
     }
 
-
     if (i < 32) {
-        _selectedId = i;
+        clickedId = i;
+        update();
+    }
+
+    // 没有选中棋子之前
+    if (_selectedId == -1) {
+        if(clickedId != -1) {
+            _selectedId = clickedId;
+            update();
+        }
+    } else {
+        // 选中棋子之后 可以移动
+        _s[_selectedId]._row = row;
+        _s[_selectedId]._col = col;
+        if (clickedId != -1) {
+            _s[clickedId]._dead = true;
+        }
+        _selectedId = -1;
         update();
     }
 }
@@ -139,6 +156,10 @@ bool Board::getRowCol(QPoint pt, int &row, int &col)
 
 void Board::drawStone(QPainter &painter, int id)
 {
+    if (_s[id]._dead) {
+        return;
+    }
+
     qDebug()<<"当前行:"<<_s[id]._row<<"当前列:"<<_s[id]._col;
     // 被选中的棋子 背景颜色要高亮
     if (id == _selectedId) {

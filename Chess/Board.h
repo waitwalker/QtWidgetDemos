@@ -23,7 +23,7 @@ public:
     // 绘制函数
     virtual void paintEvent(QPaintEvent *event);
 
-    // 鼠标释放事件
+    // 鼠标释放事件 棋子选中
     virtual void mouseReleaseEvent(QMouseEvent *event);
 
     // 棋子半径
