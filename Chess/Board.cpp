@@ -9,6 +9,7 @@ Board::Board(QWidget *parent) :
 {
     ui->setupUi(this);
     this->_r = 20;
+    _selectedId = -1;
 
     for (int i = 0; i < 32; i++ ) {
         _s[i].init(i);
@@ -73,6 +74,30 @@ void Board::mouseReleaseEvent(QMouseEvent *event)
 {
     // 鼠标点中 释放
     QPoint pt = event->pos();
+    qDebug()<<pt.x();
+    qDebug()<<pt.y();
+    // 将pt转换成象棋的行列值
+    int row, col;
+    bool bRet = getRowCol(pt,row,col);
+    // 点到棋盘外
+    if (bRet == false) {
+        return;
+    }
+
+    // 判断这个行列值上面有无棋子
+    int i;
+    for (i = 0; i < 32 ; i++ ) {
+        // 当前棋子被选中
+        if (_s[i]._row == row && _s[i]._col == col && _s[i]._dead == false) {
+            break;
+        }
+    }
+
+
+    if (i < 32) {
+        _selectedId = i;
+        update();
+    }
 }
 
 QPoint Board::center(int row, int col)
@@ -90,10 +115,37 @@ QPoint Board::center(int id)
     return center(_s[id]._row,_s[id]._col);
 }
 
+// 效率不高 应该改进
+bool Board::getRowCol(QPoint pt, int &row, int &col)
+{
+    for (row = 0; row <= 9 ; row++ ) {
+        for (col = 0; col <= 8; col++ ) {
+            // 计算行和列对应的坐标
+            QPoint c = center(row, col);
+
+            int dx = c.x() - pt.x();
+            int dy = c.y() - pt.y();
+
+            // 计算点击的区域
+            int dist = dx * dx + dy * dy;
+            if (dist < _r * _r) {
+                return true;
+            }
+
+        }
+    }
+    return false;
+}
+
 void Board::drawStone(QPainter &painter, int id)
 {
     qDebug()<<"当前行:"<<_s[id]._row<<"当前列:"<<_s[id]._col;
-    painter.setBrush(QBrush(QColor(155,155,0)));
+    // 被选中的棋子 背景颜色要高亮
+    if (id == _selectedId) {
+        painter.setBrush(QBrush(Qt::gray));
+    } else {
+        painter.setBrush(QBrush(QColor(155,155,0)));
+    }
     if (_s[id]._red) {
         painter.setPen(Qt::red);
     } else {
