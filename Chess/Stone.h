@@ -1,11 +1,17 @@
 #ifndef STONE_H
 #define STONE_H
 
+#include <QString>
+
+
 
 class Stone
 {
 public:
     Stone();
+
+    // 棋子初始化
+    void init(int id);
     ~Stone();
 
     enum TYPE {
@@ -35,6 +41,9 @@ public:
 
     // 类型
     TYPE _type;
+
+    QString getText();
+
 };
 
 #endif // STONE_H

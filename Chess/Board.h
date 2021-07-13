@@ -29,6 +29,10 @@ public:
     // 返回象棋棋盘行列对应的像素坐标
     QPoint center(int row, int col);
 
+    // 重载
+    QPoint center(int id);
+
+
 
 private:
     Ui::Board *ui;

@@ -8,6 +8,10 @@ Board::Board(QWidget *parent) :
 {
     ui->setupUi(this);
     this->_r = 20;
+
+    for (int i = 0; i < 32; i++ ) {
+        _s[i].init(i);
+    }
 }
 
 Board::~Board()
@@ -23,7 +27,7 @@ void Board::paintEvent(QPaintEvent *event)
     int d = 40;
 
     // 画10条横线
-    for (int i = 1; i < 11 ; i++ ) {
+    for (int i = 1; i <= 10 ; ++i ) {
         if (i == 1 || i == 10) {
             painter.setPen(QPen(QColor(255,255,255),4));
         } else {
@@ -33,7 +37,7 @@ void Board::paintEvent(QPaintEvent *event)
     }
 
     // 画9条竖线
-    for (int i = 1; i < 10 ; i++) {
+    for (int i = 1; i <= 9 ; ++i) {
 
         if (i == 1 || i == 9) {
             painter.setPen(QPen(QColor(255,255,255),4));
@@ -57,7 +61,7 @@ void Board::paintEvent(QPaintEvent *event)
     painter.drawText(QPoint(7 * d, 5.5 * d),"汉界");
 
     // 绘制32颗棋子
-    for (int i = 0; i < 32 ;i++ ) {
+    for (int i = 0; i < 32 ;++i ) {
         this->drawStone(painter, i);
     }
 
@@ -67,19 +71,30 @@ void Board::paintEvent(QPaintEvent *event)
 QPoint Board::center(int row, int col)
 {
     QPoint ret;
-    ret.setX(col * _r * 2);
-    ret.setY(row * _r * 2);
+    //ret.setX(col * _r * 2);
+    //ret.setY(row * _r * 2);
+    ret.rx() = (col + 1) * _r * 2;
+    ret.ry() = (row + 1) * _r * 2;
     return ret;
+}
+
+QPoint Board::center(int id)
+{
+    return center(_s[id]._row,_s[id]._col);
 }
 
 void Board::drawStone(QPainter &painter, int id)
 {
     qDebug()<<"当前行:"<<_s[id]._row<<"当前列:"<<_s[id]._col;
 
-    // 根据棋子的行和列坐标 转换成棋盘的像素坐标
-    painter.drawEllipse(center(_s[id]._row,_s[id]._col), _r, _r);
+    // 根据棋子的行和列坐标 转换成棋盘的像素坐标, 说白了就在这个id位置画一个圆圈
+    painter.drawEllipse(center(id), _r, _r);
+
+    QPoint c = center(id);
+
+    QRect rect = QRect(c.x() - _r, c.y() - _r , _r * 2, _r *2);
 
     // 画文字
-    painter.drawText(center(_s[id]._row,_s[id]._col), "兵");
+    painter.drawText(rect, _s[id].getText(),QTextOption(Qt::AlignCenter));
 }
 
