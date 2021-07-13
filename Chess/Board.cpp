@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "ui_Board.h"
 #include <QPainter>
+#include <QMouseEvent>
 
 Board::Board(QWidget *parent) :
     QWidget(parent),
@@ -70,7 +71,8 @@ void Board::paintEvent(QPaintEvent *event)
 
 void Board::mouseReleaseEvent(QMouseEvent *event)
 {
-
+    // 鼠标点中 释放
+    QPoint pt = event->pos();
 }
 
 QPoint Board::center(int row, int col)
