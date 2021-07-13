@@ -85,6 +85,7 @@ void Board::mouseReleaseEvent(QMouseEvent *event)
     }
 
     // 判断这个行列值上面有无棋子
+    // 获取当前点击棋子的id 如果当前行列上有棋子,就会被吃掉,相当于在_s数组里面替换成当前点击的棋子
     int i;
     int clickedId = -1;
     for (i = 0; i < 32 ; i++ ) {
