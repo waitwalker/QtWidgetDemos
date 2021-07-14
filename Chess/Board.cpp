@@ -130,6 +130,88 @@ bool Board::canMove(int moveId, int row, int col, int killId)
         update();
         return false;
     }
+    switch (_s[moveId]._type) {
+    case Stone::JIANG:
+        return canMove1(moveId,row,col,killId);
+        break;
+    case Stone::SHI:
+        canMove2(moveId,row,col,killId);
+        break;
+    case Stone::XIANG:
+        canMove3(moveId,row,col,killId);
+        break;
+    case Stone::CHE:
+        canMove4(moveId,row,col,killId);
+        break;
+    case Stone::MA:
+        canMove5(moveId,row,col,killId);
+        break;
+    case Stone::PAO:
+        canMove6(moveId,row,col,killId);
+        break;
+    case Stone::BING:
+        canMove7(moveId,row,col,killId);
+        break;
+    }
+    return true;
+}
+
+bool Board::canMove1(int moveId, int row, int col, int killId)
+{
+    // 将的规则
+    // 1.在九宫格内移动
+    // 2.每次最多移动一个
+    if (_s[moveId]._red) {
+        if (row > 2) {
+            return false;
+        }
+    } else {
+        if (row < 7) {
+            return false;
+        }
+    }
+
+    if (col < 3 || col > 5) {
+        return false;
+    }
+
+    // 移动的距离
+    int dRow = _s[moveId]._row - row;
+    int dCol = _s[moveId]._col - col;
+    int d = abs(dRow) * 10 + abs(dCol);
+    if (d == 1 || d == 10) {
+        return true;
+    }
+    return false;
+}
+
+bool Board::canMove2(int moveId, int row, int col, int killId)
+{
+    return true;
+}
+
+bool Board::canMove3(int moveId, int row, int col, int killId)
+{
+    return true;
+}
+
+bool Board::canMove4(int moveId, int row, int col, int killId)
+{
+    return true;
+}
+
+bool Board::canMove5(int moveId, int row, int col, int killId)
+{
+    return true;
+}
+
+bool Board::canMove6(int moveId, int row, int col, int killId)
+{
+    return true;
+}
+
+bool Board::canMove7(int moveId, int row, int col, int killId)
+{
     return true;
 }
 

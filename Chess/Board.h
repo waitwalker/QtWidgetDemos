@@ -28,6 +28,13 @@ public:
 
     // 判断棋子是否可以移动
     bool canMove(int moveId, int row, int col, int killId);
+    bool canMove1(int moveId, int row, int col, int killId);
+    bool canMove2(int moveId, int row, int col, int killId);
+    bool canMove3(int moveId, int row, int col, int killId);
+    bool canMove4(int moveId, int row, int col, int killId);
+    bool canMove5(int moveId, int row, int col, int killId);
+    bool canMove6(int moveId, int row, int col, int killId);
+    bool canMove7(int moveId, int row, int col, int killId);
 
     // 棋子半径
     int _r;
