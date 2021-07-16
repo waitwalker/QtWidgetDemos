@@ -2,6 +2,14 @@
 #define TCPSOCKETSERVERUI_H
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QTextEdit>
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QTcpServer>
+#include <QTcpSocket>
+
 
 namespace Ui {
 class TcpSocketServerUI;
@@ -17,6 +25,17 @@ public:
 
 private:
     Ui::TcpSocketServerUI *ui;
+
+    QTextEdit *receiveEdit;
+    QTextEdit *sendEdit;
+
+    QPushButton *createButton;
+    QPushButton *sendButton;
+    QPushButton *closeButton;
+
+    QTcpServer *pTcpServer;
+    QTcpSocket *pTcpSocket;
+
 };
 
 #endif // TCPSOCKETSERVERUI_H

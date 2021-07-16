@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDateEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -19,16 +18,12 @@ QT_BEGIN_NAMESPACE
 class Ui_TcpSocketServerUI
 {
 public:
-    QDateEdit *dateEdit;
 
     void setupUi(QWidget *TcpSocketServerUI)
     {
         if (TcpSocketServerUI->objectName().isEmpty())
             TcpSocketServerUI->setObjectName(QString::fromUtf8("TcpSocketServerUI"));
         TcpSocketServerUI->resize(400, 300);
-        dateEdit = new QDateEdit(TcpSocketServerUI);
-        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
-        dateEdit->setGeometry(QRect(100, 80, 171, 91));
 
         retranslateUi(TcpSocketServerUI);
 

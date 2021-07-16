@@ -13,16 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QDateEdit" name="dateEdit">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>80</y>
-     <width>171</width>
-     <height>91</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
