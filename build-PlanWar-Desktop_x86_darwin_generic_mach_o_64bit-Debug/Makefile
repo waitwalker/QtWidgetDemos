@@ -54,11 +54,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../PlanWar/MainScene.cpp \
 		../PlanWar/main.cpp \
-		../PlanWar/mainwindow.cpp moc_MainScene.cpp \
+		../PlanWar/mainwindow.cpp qrc_res.cpp \
+		moc_MainScene.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = MainScene.o \
 		main.o \
 		mainwindow.o \
+		qrc_res.o \
 		moc_MainScene.o \
 		moc_mainwindow.o
 DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.prf \
@@ -250,7 +252,8 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exceptions.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
-		../PlanWar/PlanWar.pro ../PlanWar/MainScene.h \
+		../PlanWar/PlanWar.pro ../PlanWar/Config.h \
+		../PlanWar/MainScene.h \
 		../PlanWar/mainwindow.h ../PlanWar/MainScene.cpp \
 		../PlanWar/main.cpp \
 		../PlanWar/mainwindow.cpp
@@ -467,6 +470,7 @@ Makefile: ../PlanWar/PlanWar.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/m
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
 		../PlanWar/PlanWar.pro \
+		../PlanWar/res.qrc \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Resources/QtGui.prl \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Resources/QtCore.prl
@@ -661,6 +665,7 @@ Makefile: ../PlanWar/PlanWar.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/m
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf:
 ../PlanWar/PlanWar.pro:
+../PlanWar/res.qrc:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Resources/QtGui.prl:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Resources/QtCore.prl:
@@ -693,8 +698,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../PlanWar/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../PlanWar/MainScene.h ../PlanWar/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../PlanWar/Config.h ../PlanWar/MainScene.h ../PlanWar/mainwindow.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../PlanWar/MainScene.cpp ../PlanWar/main.cpp ../PlanWar/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PlanWar/MainScene.ui ../PlanWar/mainwindow.ui $(DISTDIR)/
 
@@ -723,8 +729,13 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_res.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_res.cpp
+qrc_res.cpp: ../PlanWar/res.qrc \
+		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/rcc
+	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/rcc -name res ../PlanWar/res.qrc -o qrc_res.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -771,14 +782,15 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
 MainScene.o: ../PlanWar/MainScene.cpp ../PlanWar/MainScene.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
-		ui_MainScene.h
+		ui_MainScene.h \
+		../PlanWar/Config.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainScene.o ../PlanWar/MainScene.cpp
 
 main.o: ../PlanWar/main.cpp ../PlanWar/mainwindow.h \
@@ -793,8 +805,14 @@ mainwindow.o: ../PlanWar/mainwindow.cpp ../PlanWar/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		ui_mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QPushButton \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qpushbutton.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../PlanWar/MainScene.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../PlanWar/mainwindow.cpp
+
+qrc_res.o: qrc_res.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
 
 moc_MainScene.o: moc_MainScene.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainScene.o moc_MainScene.cpp

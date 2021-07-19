@@ -17,6 +17,9 @@ public:
     explicit MainScene(QWidget *parent = nullptr);
     ~MainScene();
 
+    // 初始化相关成员变量
+    void initScene();
+
 signals:
     // 要发送的信号 不需要实现
     void closeScene();
