@@ -53,11 +53,13 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../PlanWar/MainScene.cpp \
+		../PlanWar/Map.cpp \
 		../PlanWar/main.cpp \
 		../PlanWar/mainwindow.cpp qrc_res.cpp \
 		moc_MainScene.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = MainScene.o \
+		Map.o \
 		main.o \
 		mainwindow.o \
 		qrc_res.o \
@@ -254,7 +256,9 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
 		../PlanWar/PlanWar.pro ../PlanWar/Config.h \
 		../PlanWar/MainScene.h \
+		../PlanWar/Map.h \
 		../PlanWar/mainwindow.h ../PlanWar/MainScene.cpp \
+		../PlanWar/Map.cpp \
 		../PlanWar/main.cpp \
 		../PlanWar/mainwindow.cpp
 QMAKE_TARGET  = PlanWar
@@ -700,8 +704,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../PlanWar/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../PlanWar/Config.h ../PlanWar/MainScene.h ../PlanWar/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../PlanWar/MainScene.cpp ../PlanWar/main.cpp ../PlanWar/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../PlanWar/Config.h ../PlanWar/MainScene.h ../PlanWar/Map.h ../PlanWar/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../PlanWar/MainScene.cpp ../PlanWar/Map.cpp ../PlanWar/main.cpp ../PlanWar/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PlanWar/MainScene.ui ../PlanWar/mainwindow.ui $(DISTDIR)/
 
 
@@ -790,8 +794,15 @@ MainScene.o: ../PlanWar/MainScene.cpp ../PlanWar/MainScene.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
 		ui_MainScene.h \
-		../PlanWar/Config.h
+		../PlanWar/Config.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QIcon \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qicon.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainScene.o ../PlanWar/MainScene.cpp
+
+Map.o: ../PlanWar/Map.cpp ../PlanWar/Map.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPixmap \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Map.o ../PlanWar/Map.cpp
 
 main.o: ../PlanWar/main.cpp ../PlanWar/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \

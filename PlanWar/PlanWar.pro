@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     MainScene.cpp \
+    Map.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Config.h \
     MainScene.h \
+    Map.h \
     mainwindow.h
 
 FORMS += \
