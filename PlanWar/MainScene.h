@@ -55,6 +55,9 @@ public:
     // 敌机出场间隔
     int m_recorder;
 
+    // 碰撞检测
+    void collisionDetection();
+
     // 测试子弹
 //    Bullet tmp_Bullet;
 
