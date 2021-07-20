@@ -52,14 +52,18 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../PlanWar/MainScene.cpp \
+SOURCES       = ../PlanWar/HeroPlane.cpp \
+		../PlanWar/MainScene.cpp \
 		../PlanWar/Map.cpp \
+		../PlanWar/PlaneWar.cpp \
 		../PlanWar/main.cpp \
 		../PlanWar/mainwindow.cpp qrc_res.cpp \
 		moc_MainScene.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = MainScene.o \
+OBJECTS       = HeroPlane.o \
+		MainScene.o \
 		Map.o \
+		PlaneWar.o \
 		main.o \
 		mainwindow.o \
 		qrc_res.o \
@@ -255,10 +259,14 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
 		../PlanWar/PlanWar.pro ../PlanWar/Config.h \
+		../PlanWar/HeroPlane.h \
 		../PlanWar/MainScene.h \
 		../PlanWar/Map.h \
-		../PlanWar/mainwindow.h ../PlanWar/MainScene.cpp \
+		../PlanWar/PlaneWar.h \
+		../PlanWar/mainwindow.h ../PlanWar/HeroPlane.cpp \
+		../PlanWar/MainScene.cpp \
 		../PlanWar/Map.cpp \
+		../PlanWar/PlaneWar.cpp \
 		../PlanWar/main.cpp \
 		../PlanWar/mainwindow.cpp
 QMAKE_TARGET  = PlanWar
@@ -704,8 +712,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../PlanWar/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../PlanWar/Config.h ../PlanWar/MainScene.h ../PlanWar/Map.h ../PlanWar/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../PlanWar/MainScene.cpp ../PlanWar/Map.cpp ../PlanWar/main.cpp ../PlanWar/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../PlanWar/Config.h ../PlanWar/HeroPlane.h ../PlanWar/MainScene.h ../PlanWar/Map.h ../PlanWar/PlaneWar.h ../PlanWar/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../PlanWar/HeroPlane.cpp ../PlanWar/MainScene.cpp ../PlanWar/Map.cpp ../PlanWar/PlaneWar.cpp ../PlanWar/main.cpp ../PlanWar/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PlanWar/MainScene.ui ../PlanWar/mainwindow.ui $(DISTDIR)/
 
 
@@ -752,6 +760,12 @@ compiler_moc_header_clean:
 moc_MainScene.cpp: ../PlanWar/MainScene.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QTimer \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qtimer.h \
+		../PlanWar/Map.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPixmap \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h \
+		../PlanWar/HeroPlane.h \
 		moc_predefs.h \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc
 	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc $(DEFINES) --include /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-PlanWar-Desktop_x86_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/PlanWar -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/usr/local/Cellar/qt/6.1.0_1/lib ../PlanWar/MainScene.h -o moc_MainScene.cpp
@@ -790,19 +804,37 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
+HeroPlane.o: ../PlanWar/HeroPlane.cpp ../PlanWar/HeroPlane.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPixmap \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h \
+		../PlanWar/Config.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o HeroPlane.o ../PlanWar/HeroPlane.cpp
+
 MainScene.o: ../PlanWar/MainScene.cpp ../PlanWar/MainScene.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QTimer \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qtimer.h \
+		../PlanWar/Map.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPixmap \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h \
+		../PlanWar/HeroPlane.h \
 		ui_MainScene.h \
 		../PlanWar/Config.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPainter \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpainter.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QIcon \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qicon.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainScene.o ../PlanWar/MainScene.cpp
 
 Map.o: ../PlanWar/Map.cpp ../PlanWar/Map.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPixmap \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h \
+		../PlanWar/Config.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Map.o ../PlanWar/Map.cpp
+
+PlaneWar.o: ../PlanWar/PlaneWar.cpp ../PlanWar/PlaneWar.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PlaneWar.o ../PlanWar/PlaneWar.cpp
 
 main.o: ../PlanWar/main.cpp ../PlanWar/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -819,7 +851,13 @@ mainwindow.o: ../PlanWar/mainwindow.cpp ../PlanWar/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../PlanWar/MainScene.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QTimer \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qtimer.h \
+		../PlanWar/Map.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPixmap \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h \
+		../PlanWar/HeroPlane.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../PlanWar/mainwindow.cpp
 
 qrc_res.o: qrc_res.cpp 

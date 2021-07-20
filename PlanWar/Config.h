@@ -12,5 +12,9 @@
 
 #define GAME_RATE 10 //帧率 单位毫秒
 
+// 飞机相关配置
+#define HERO_PATH ":/images/hero2.png"
+
+
 
 #endif // CONFIG_H

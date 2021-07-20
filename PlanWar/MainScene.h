@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTimer>
 #include "Map.h"
+#include "HeroPlane.h"
 
 namespace Ui {
 class MainScene;
@@ -31,10 +32,17 @@ public:
     // 更新坐标
     void updatePosition();
 
+    // 虚函数 重写绘制事件
     virtual void paintEvent(QPaintEvent *event);
 
     // 地图对象
     Map m_map;
+
+    // 创建飞机对象
+    HeroPlane m_Hero;
+
+    // 鼠标移动事件
+    virtual void mouseMoveEvent(QMouseEvent *event);
 
 signals:
     // 要发送的信号 不需要实现

@@ -3,6 +3,7 @@
 #include "Config.h"
 #include <QPainter>
 #include <QIcon>
+#include <QMouseEvent>
 
 void MainScene::closeEvent(QCloseEvent *event)
 {
@@ -69,6 +70,36 @@ void MainScene::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.drawPixmap(0,m_map.m_map1_posY, m_map.m_map1);
     painter.drawPixmap(0,m_map.m_map2_posY, m_map.m_map2);
+
+    // 绘制飞机
+    painter.drawPixmap(m_Hero.m_x,m_Hero.m_y,m_Hero.m_Plane);
+}
+
+void MainScene::mouseMoveEvent(QMouseEvent *event)
+{
+    // 获取鼠标的真实位置与偏移位置
+    int x = event->pos().x() - m_Hero.m_Rect.width() * 0.5;
+    int y = event->pos().y() - m_Hero.m_Rect.height() * 0.5;
+
+    // 边界检测
+    if (x <= 0) {
+        x = 0;
+    }
+
+    if (x >= GAME_WIDTH - m_Hero.m_Rect.width()) {
+        x = GAME_WIDTH - m_Hero.m_Rect.width();
+    }
+
+    if (y <= 0) {
+        y = 0;
+    }
+
+    if (y >= GAME_HEIGHT - m_Hero.m_Rect.height()) {
+        y = GAME_HEIGHT - m_Hero.m_Rect.height();
+    }
+
+
+    m_Hero.setPosition(x,y);
 }
 
 
