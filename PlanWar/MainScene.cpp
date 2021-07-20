@@ -43,6 +43,9 @@ void MainScene::initScene()
 
     // 敌机出场记录变量 初始化
     m_recorder = 0;
+
+    // 随机数种子
+    srand((unsigned int)time(NULL));
 }
 
 // 玩游戏
