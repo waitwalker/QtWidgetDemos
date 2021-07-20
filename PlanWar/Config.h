@@ -27,4 +27,10 @@
 #define ENEMY_NUM 20 // 敌机总数量
 #define ENEMY_INTERVAL 30// 敌机出场时间间隔
 
+#define BOMB_PATH ":/images/bomb-%1.png" // 爆炸资源图片 %1作为格式化索引
+#define BOMB_NUM 20 //炸弹数量
+#define BOMB_MAX 7 // 炸弹图片最大索引
+#define BOMB_INTERVAL 20 // 爆炸切图时间间隔
+
+
 #endif // CONFIG_H

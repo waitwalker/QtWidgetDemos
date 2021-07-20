@@ -52,7 +52,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../PlanWar/Bullet.cpp \
+SOURCES       = ../PlanWar/Bomb.cpp \
+		../PlanWar/Bullet.cpp \
 		../PlanWar/EnemyPlane.cpp \
 		../PlanWar/HeroPlane.cpp \
 		../PlanWar/MainScene.cpp \
@@ -62,7 +63,8 @@ SOURCES       = ../PlanWar/Bullet.cpp \
 		../PlanWar/mainwindow.cpp qrc_res.cpp \
 		moc_MainScene.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = Bullet.o \
+OBJECTS       = Bomb.o \
+		Bullet.o \
 		EnemyPlane.o \
 		HeroPlane.o \
 		MainScene.o \
@@ -262,14 +264,16 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exceptions.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
-		../PlanWar/PlanWar.pro ../PlanWar/Bullet.h \
+		../PlanWar/PlanWar.pro ../PlanWar/Bomb.h \
+		../PlanWar/Bullet.h \
 		../PlanWar/Config.h \
 		../PlanWar/EnemyPlane.h \
 		../PlanWar/HeroPlane.h \
 		../PlanWar/MainScene.h \
 		../PlanWar/Map.h \
 		../PlanWar/PlaneWar.h \
-		../PlanWar/mainwindow.h ../PlanWar/Bullet.cpp \
+		../PlanWar/mainwindow.h ../PlanWar/Bomb.cpp \
+		../PlanWar/Bullet.cpp \
 		../PlanWar/EnemyPlane.cpp \
 		../PlanWar/HeroPlane.cpp \
 		../PlanWar/MainScene.cpp \
@@ -720,8 +724,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../PlanWar/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../PlanWar/Bullet.h ../PlanWar/Config.h ../PlanWar/EnemyPlane.h ../PlanWar/HeroPlane.h ../PlanWar/MainScene.h ../PlanWar/Map.h ../PlanWar/PlaneWar.h ../PlanWar/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../PlanWar/Bullet.cpp ../PlanWar/EnemyPlane.cpp ../PlanWar/HeroPlane.cpp ../PlanWar/MainScene.cpp ../PlanWar/Map.cpp ../PlanWar/PlaneWar.cpp ../PlanWar/main.cpp ../PlanWar/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../PlanWar/Bomb.h ../PlanWar/Bullet.h ../PlanWar/Config.h ../PlanWar/EnemyPlane.h ../PlanWar/HeroPlane.h ../PlanWar/MainScene.h ../PlanWar/Map.h ../PlanWar/PlaneWar.h ../PlanWar/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../PlanWar/Bomb.cpp ../PlanWar/Bullet.cpp ../PlanWar/EnemyPlane.cpp ../PlanWar/HeroPlane.cpp ../PlanWar/MainScene.cpp ../PlanWar/Map.cpp ../PlanWar/PlaneWar.cpp ../PlanWar/main.cpp ../PlanWar/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PlanWar/MainScene.ui ../PlanWar/mainwindow.ui $(DISTDIR)/
 
 
@@ -779,6 +783,7 @@ moc_MainScene.cpp: ../PlanWar/MainScene.h \
 		../PlanWar/EnemyPlane.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QRect \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qrect.h \
+		../PlanWar/Bomb.h \
 		moc_predefs.h \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc
 	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc $(DEFINES) --include /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-PlanWar-Desktop_x86_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/PlanWar -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/usr/local/Cellar/qt/6.1.0_1/lib ../PlanWar/MainScene.h -o moc_MainScene.cpp
@@ -817,6 +822,12 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
+Bomb.o: ../PlanWar/Bomb.cpp ../PlanWar/Bomb.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPixmap \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h \
+		../PlanWar/Config.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bomb.o ../PlanWar/Bomb.cpp
+
 Bullet.o: ../PlanWar/Bullet.cpp ../PlanWar/Bullet.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPixmap \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpixmap.h \
@@ -852,6 +863,7 @@ MainScene.o: ../PlanWar/MainScene.cpp ../PlanWar/MainScene.h \
 		../PlanWar/EnemyPlane.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QRect \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qrect.h \
+		../PlanWar/Bomb.h \
 		ui_MainScene.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/QPainter \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers/qpainter.h \
@@ -896,7 +908,8 @@ mainwindow.o: ../PlanWar/mainwindow.cpp ../PlanWar/mainwindow.h \
 		../PlanWar/Bullet.h \
 		../PlanWar/EnemyPlane.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QRect \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qrect.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qrect.h \
+		../PlanWar/Bomb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../PlanWar/mainwindow.cpp
 
 qrc_res.o: qrc_res.cpp 

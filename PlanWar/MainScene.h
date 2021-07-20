@@ -7,6 +7,7 @@
 #include "HeroPlane.h"
 #include "Bullet.h"
 #include "EnemyPlane.h"
+#include "Bomb.h"
 
 namespace Ui {
 class MainScene;
@@ -57,6 +58,9 @@ public:
 
     // 碰撞检测
     void collisionDetection();
+
+    // 爆炸数组
+    Bomb m_bombs[BOMB_NUM];
 
     // 测试子弹
 //    Bullet tmp_Bullet;
