@@ -16,5 +16,7 @@
 #define HERO_PATH ":/images/hero2.png"
 
 
+#define BULLET_PATH ":/images/bullet_11.png" // 子弹图片路径
+#define BULLET_SPEED 5 // 子弹移动速度
 
 #endif // CONFIG_H

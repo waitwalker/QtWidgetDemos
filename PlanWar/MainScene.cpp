@@ -62,6 +62,10 @@ void MainScene::updatePosition()
 {
     // 更新地图坐标
     m_map.mapPosition();
+
+    // 测试坐标;
+    tmp_Bullet.m_Free = false;
+    tmp_Bullet.updatePosition();
 }
 
 void MainScene::paintEvent(QPaintEvent *event)
@@ -73,6 +77,9 @@ void MainScene::paintEvent(QPaintEvent *event)
 
     // 绘制飞机
     painter.drawPixmap(m_Hero.m_x,m_Hero.m_y,m_Hero.m_Plane);
+
+    // 测试子弹
+    painter.drawPixmap(tmp_Bullet.m_x,tmp_Bullet.m_y,tmp_Bullet.m_Bullet);
 }
 
 void MainScene::mouseMoveEvent(QMouseEvent *event)

@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "Map.h"
 #include "HeroPlane.h"
+#include "Bullet.h"
 
 namespace Ui {
 class MainScene;
@@ -43,6 +44,9 @@ public:
 
     // 鼠标移动事件
     virtual void mouseMoveEvent(QMouseEvent *event);
+
+    // 测试子弹
+    Bullet tmp_Bullet;
 
 signals:
     // 要发送的信号 不需要实现
