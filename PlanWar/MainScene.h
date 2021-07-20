@@ -6,6 +6,7 @@
 #include "Map.h"
 #include "HeroPlane.h"
 #include "Bullet.h"
+#include "EnemyPlane.h"
 
 namespace Ui {
 class MainScene;
@@ -44,6 +45,15 @@ public:
 
     // 鼠标移动事件
     virtual void mouseMoveEvent(QMouseEvent *event);
+
+    // 敌机出场
+    void enemyToScene();
+
+    // 敌机数组
+    EnemyPlane m_enemys[ENEMY_NUM];
+
+    // 敌机出场间隔
+    int m_recorder;
 
     // 测试子弹
 //    Bullet tmp_Bullet;

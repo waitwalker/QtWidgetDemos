@@ -18,7 +18,7 @@ MainScene::MainScene(QWidget *parent) :
 {
     ui->setupUi(this);
     initScene();
-    playGame();
+
 
       // 设置背景
 //    QPalette palette;
@@ -39,7 +39,10 @@ void MainScene::initScene()
     this->setWindowIcon(QIcon(":/images/app.ico"));
 
     m_Timer.setInterval(GAME_RATE );
+    playGame();
 
+    // 敌机出场记录变量 初始化
+    m_recorder = 0;
 }
 
 // 玩游戏
@@ -50,6 +53,9 @@ void MainScene::playGame()
 
     // 监听定时器信号
     connect(&m_Timer,&QTimer::timeout,[=](){
+        // 敌机出场
+        enemyToScene();
+
         // 更新游戏中所有元素的坐标
         updatePosition();
 
@@ -74,12 +80,20 @@ void MainScene::updatePosition()
         }
     }
 
+    // 敌机坐标计算
+    for (int i = 0; i < ENEMY_NUM ;i++ ) {
+        // 非空闲敌机 更新坐标
+        if (m_enemys[i].m_Free == false) {
+            m_enemys[i].updatePosition();
+        }
+    }
+
     // 测试坐标;
 //    tmp_Bullet.m_Free = false;
 //    tmp_Bullet.updatePosition();
 }
 
-void MainScene::paintEvent(QPaintEvent *event)
+void MainScene::paintEvent(QPaintEvent *)
 {
     // 利用画家(画笔)
     QPainter painter(this);
@@ -94,6 +108,14 @@ void MainScene::paintEvent(QPaintEvent *event)
         // 如果子弹状态非空闲, 绘制图片
         if (m_Hero.m_bullets[i].m_Free == false) {
             painter.drawPixmap(m_Hero.m_bullets[i].m_x,m_Hero.m_bullets[i].m_y,m_Hero.m_bullets[i].m_Bullet);
+        }
+    }
+
+    // 绘制敌机
+    for (int i = 0; i < ENEMY_NUM; i++) {
+        // 如果敌机状态为非空闲 绘制图片
+        if (m_enemys[i].m_Free == false) {
+            painter.drawPixmap(m_enemys[i].m_x,m_enemys[i].m_y,m_enemys[i].m_enemy);
         }
     }
 
@@ -126,6 +148,28 @@ void MainScene::mouseMoveEvent(QMouseEvent *event)
 
 
     m_Hero.setPosition(x,y);
+}
+
+void MainScene::enemyToScene()
+{
+    // 累加出场间隔
+    m_recorder++;
+    if (m_recorder < ENEMY_INTERVAL) {
+        return;
+    }
+
+    m_recorder = 0;
+    for (int i = 0; i < ENEMY_NUM ; i++ ) {
+        if (m_enemys[i].m_Free) {
+            // 敌机空闲状态改为false
+            m_enemys[i].m_Free = false;
+
+            // 设置坐标
+            m_enemys[i].m_x = rand() % (GAME_WIDTH - m_enemys[i].m_enemy.width());
+            m_enemys[i].m_y = -m_enemys[i].m_Rect.height();
+            break;
+        }
+    }
 }
 
 

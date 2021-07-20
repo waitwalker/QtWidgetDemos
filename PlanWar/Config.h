@@ -22,4 +22,9 @@
 #define BULLET_NUM 30 // 弹夹中子弹总数
 #define BULLET_INTERVAL 20 // 发射子弹时间间隔
 
+#define ENEMY_PATH ":/images/img-plane_5.png" // 低级资源图片
+#define ENEMY_SPEED 5 // 敌机移动速度
+#define ENEMY_NUM 20 // 敌机总数量
+#define ENEMY_INTERVAL 30// 敌机出场时间间隔
+
 #endif // CONFIG_H

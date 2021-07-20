@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     Bullet.cpp \
+    EnemyPlane.cpp \
     HeroPlane.cpp \
     MainScene.cpp \
     Map.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     Bullet.h \
     Config.h \
+    EnemyPlane.h \
     HeroPlane.h \
     MainScene.h \
     Map.h \
