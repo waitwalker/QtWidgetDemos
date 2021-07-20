@@ -63,9 +63,20 @@ void MainScene::updatePosition()
     // 更新地图坐标
     m_map.mapPosition();
 
+    // 发射子弹
+    m_Hero.shoot();
+
+    // 计算子弹坐标
+    for (int i =0; i < BULLET_NUM ;i++ ) {
+        // 如果子弹状态为非空闲, 计算发射位置
+        if (m_Hero.m_bullets[i].m_Free == false) {
+            m_Hero.m_bullets[i].updatePosition();
+        }
+    }
+
     // 测试坐标;
-    tmp_Bullet.m_Free = false;
-    tmp_Bullet.updatePosition();
+//    tmp_Bullet.m_Free = false;
+//    tmp_Bullet.updatePosition();
 }
 
 void MainScene::paintEvent(QPaintEvent *event)
@@ -78,8 +89,16 @@ void MainScene::paintEvent(QPaintEvent *event)
     // 绘制飞机
     painter.drawPixmap(m_Hero.m_x,m_Hero.m_y,m_Hero.m_Plane);
 
+    // 绘制子弹
+    for (int i = 0; i < BULLET_NUM; i++) {
+        // 如果子弹状态非空闲, 绘制图片
+        if (m_Hero.m_bullets[i].m_Free == false) {
+            painter.drawPixmap(m_Hero.m_bullets[i].m_x,m_Hero.m_bullets[i].m_y,m_Hero.m_bullets[i].m_Bullet);
+        }
+    }
+
     // 测试子弹
-    painter.drawPixmap(tmp_Bullet.m_x,tmp_Bullet.m_y,tmp_Bullet.m_Bullet);
+//    painter.drawPixmap(tmp_Bullet.m_x,tmp_Bullet.m_y,tmp_Bullet.m_Bullet);
 }
 
 void MainScene::mouseMoveEvent(QMouseEvent *event)

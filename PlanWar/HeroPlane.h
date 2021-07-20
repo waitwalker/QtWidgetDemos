@@ -2,6 +2,8 @@
 #define HEROPLANE_H
 
 #include <QPixmap>
+#include "Config.h"
+#include "Bullet.h"
 
 
 
@@ -25,6 +27,12 @@ public:
 
     // 飞机的矩形边框
     QRect m_Rect;
+
+    // 弹夹
+    Bullet m_bullets[BULLET_NUM];
+
+    // 发射间隔记录
+    int m_recorder;
 };
 
 #endif // HEROPLANE_H

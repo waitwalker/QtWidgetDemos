@@ -46,7 +46,7 @@ public:
     virtual void mouseMoveEvent(QMouseEvent *event);
 
     // 测试子弹
-    Bullet tmp_Bullet;
+//    Bullet tmp_Bullet;
 
 signals:
     // 要发送的信号 不需要实现
