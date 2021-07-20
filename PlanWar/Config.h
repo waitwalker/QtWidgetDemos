@@ -33,4 +33,7 @@
 #define BOMB_INTERVAL 20 // 爆炸切图时间间隔
 
 
+#define SOUND_BACKGROUND ":/images/bg.wav"
+#define SOUND_BOMB ":/images/bomb.wav"
+
 #endif // CONFIG_H
