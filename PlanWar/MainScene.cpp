@@ -51,6 +51,9 @@ void MainScene::initScene()
 // 玩游戏
 void MainScene::playGame()
 {
+    // 播放背景音效
+    //QSound::play(SOUND_BACKGROUND);
+
     // 启动定时器
     m_Timer.start();
 
@@ -210,6 +213,10 @@ void MainScene::collisionDetection()
 
             // 如果子弹矩形框和敌机矩形框相交,发生碰撞,同时变为空闲状态即可
             if (m_enemys[i].m_Rect.intersects(m_Hero.m_bullets[j].m_Rect)) {
+
+                // 播放爆炸音效
+                //QSound::play(SOUND_BOMB);
+
                 m_enemys[i].m_Free = true;
                 m_Hero.m_bullets[j].m_Free = true;
 
