@@ -22,7 +22,7 @@
      <height>471</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0,0">
     <item>
      <widget class="QLabel" name="themeLabel">
       <property name="text">
@@ -34,24 +34,31 @@
      <widget class="QComboBox" name="themeComboBox"/>
     </item>
     <item>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="animationLabel">
       <property name="text">
        <string>Animation:</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="comboBox"/>
+     <widget class="QComboBox" name="animationComboBox"/>
     </item>
     <item>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="legendLabel">
       <property name="text">
-       <string>TextLabel</string>
+       <string>Legend:</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="comboBox_2"/>
+     <widget class="QComboBox" name="legendComboBox"/>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="text">
+       <string>antialiasCheckBox</string>
+      </property>
+     </widget>
     </item>
     <item>
      <spacer name="horizontalSpacer">
