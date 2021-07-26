@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -19,25 +20,26 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_ThemeWidget
+class Ui_ThemeWidgetForm
 {
 public:
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QLabel *themeLabel;
     QComboBox *themeComboBox;
-    QLabel *label;
-    QComboBox *comboBox;
-    QLabel *label_2;
-    QComboBox *comboBox_2;
+    QLabel *animationLabel;
+    QComboBox *animationComboBox;
+    QLabel *legendLabel;
+    QComboBox *legendComboBox;
+    QCheckBox *checkBox;
     QSpacerItem *horizontalSpacer;
 
-    void setupUi(QWidget *ThemeWidget)
+    void setupUi(QWidget *ThemeWidgetForm)
     {
-        if (ThemeWidget->objectName().isEmpty())
-            ThemeWidget->setObjectName(QString::fromUtf8("ThemeWidget"));
-        ThemeWidget->resize(779, 476);
-        horizontalLayoutWidget = new QWidget(ThemeWidget);
+        if (ThemeWidgetForm->objectName().isEmpty())
+            ThemeWidgetForm->setObjectName(QString::fromUtf8("ThemeWidgetForm"));
+        ThemeWidgetForm->resize(778, 522);
+        horizontalLayoutWidget = new QWidget(ThemeWidgetForm);
         horizontalLayoutWidget->setObjectName(QString::fromUtf8("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 0, 781, 471));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
@@ -53,48 +55,54 @@ public:
 
         horizontalLayout->addWidget(themeComboBox);
 
-        label = new QLabel(horizontalLayoutWidget);
-        label->setObjectName(QString::fromUtf8("label"));
+        animationLabel = new QLabel(horizontalLayoutWidget);
+        animationLabel->setObjectName(QString::fromUtf8("animationLabel"));
 
-        horizontalLayout->addWidget(label);
+        horizontalLayout->addWidget(animationLabel);
 
-        comboBox = new QComboBox(horizontalLayoutWidget);
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        animationComboBox = new QComboBox(horizontalLayoutWidget);
+        animationComboBox->setObjectName(QString::fromUtf8("animationComboBox"));
 
-        horizontalLayout->addWidget(comboBox);
+        horizontalLayout->addWidget(animationComboBox);
 
-        label_2 = new QLabel(horizontalLayoutWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
+        legendLabel = new QLabel(horizontalLayoutWidget);
+        legendLabel->setObjectName(QString::fromUtf8("legendLabel"));
 
-        horizontalLayout->addWidget(label_2);
+        horizontalLayout->addWidget(legendLabel);
 
-        comboBox_2 = new QComboBox(horizontalLayoutWidget);
-        comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
+        legendComboBox = new QComboBox(horizontalLayoutWidget);
+        legendComboBox->setObjectName(QString::fromUtf8("legendComboBox"));
 
-        horizontalLayout->addWidget(comboBox_2);
+        horizontalLayout->addWidget(legendComboBox);
+
+        checkBox = new QCheckBox(horizontalLayoutWidget);
+        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+
+        horizontalLayout->addWidget(checkBox);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
 
 
-        retranslateUi(ThemeWidget);
+        retranslateUi(ThemeWidgetForm);
 
-        QMetaObject::connectSlotsByName(ThemeWidget);
+        QMetaObject::connectSlotsByName(ThemeWidgetForm);
     } // setupUi
 
-    void retranslateUi(QWidget *ThemeWidget)
+    void retranslateUi(QWidget *ThemeWidgetForm)
     {
-        ThemeWidget->setWindowTitle(QCoreApplication::translate("ThemeWidget", "Form", nullptr));
-        themeLabel->setText(QCoreApplication::translate("ThemeWidget", "Theme", nullptr));
-        label->setText(QCoreApplication::translate("ThemeWidget", "Animation:", nullptr));
-        label_2->setText(QCoreApplication::translate("ThemeWidget", "TextLabel", nullptr));
+        ThemeWidgetForm->setWindowTitle(QCoreApplication::translate("ThemeWidgetForm", "Form", nullptr));
+        themeLabel->setText(QCoreApplication::translate("ThemeWidgetForm", "Theme", nullptr));
+        animationLabel->setText(QCoreApplication::translate("ThemeWidgetForm", "Animation:", nullptr));
+        legendLabel->setText(QCoreApplication::translate("ThemeWidgetForm", "Legend:", nullptr));
+        checkBox->setText(QCoreApplication::translate("ThemeWidgetForm", "antialiasCheckBox", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class ThemeWidget: public Ui_ThemeWidget {};
+    class ThemeWidgetForm: public Ui_ThemeWidgetForm {};
 } // namespace Ui
 
 QT_END_NAMESPACE

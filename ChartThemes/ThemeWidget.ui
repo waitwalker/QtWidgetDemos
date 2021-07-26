@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ThemeWidget</class>
- <widget class="QWidget" name="ThemeWidget">
+ <class>ThemeWidgetForm</class>
+ <widget class="QWidget" name="ThemeWidgetForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>779</width>
-    <height>476</height>
+    <width>778</width>
+    <height>522</height>
    </rect>
   </property>
   <property name="windowTitle">
