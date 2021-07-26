@@ -6,3 +6,11 @@
 
 
 ![飞机大战](https://github.com/waitwalker/Resources/blob/master/Qt/qt_plane_war.png?raw=true)
+
+
+# qchart
+[源码](https://github.com/waitwalker/QtWidgetDemos/tree/main/qchart)
+
+
+![面积图表](https://github.com/waitwalker/Resources/blob/master/Qt/qt_area_chart.png?raw=true)
+
