@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE5COMPAT_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11 -Wall -Wextra -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11 -Wall -Wextra -fPIC $(DEFINES)
-INCPATH       = -I../NetworkDemo -I. -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/AGL.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -F/usr/local/Cellar/qt/6.1.0_1/lib
+INCPATH       = -I../NetworkDemo -I. -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore5Compat.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/AGL.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -F/usr/local/Cellar/qt/6.1.0_1/lib
 QMAKE         = /usr/local/Cellar/qt/6.1.0_1/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = NetworkDemo1.0.0
 DISTDIR = /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-NetworkDemo-Desktop_x86_darwin_generic_mach_o_64bit-Debug/.tmp/NetworkDemo1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/usr/local/Cellar/qt/6.1.0_1/lib
-LIBS          = $(SUBLIBS) -F/usr/local/Cellar/qt/6.1.0_1/lib -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework AGL -framework OpenGL   
+LIBS          = $(SUBLIBS) -F/usr/local/Cellar/qt/6.1.0_1/lib -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtNetwork -framework QtCore5Compat -framework QtCore -framework DiskArbitration -framework IOKit -framework AGL -framework OpenGL   
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -217,6 +217,7 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		../NetworkDemo/.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -255,7 +256,7 @@ TARGET        = NetworkDemo.app/Contents/MacOS/NetworkDemo
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 11.3
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-NetworkDemo-Desktop_x86_darwin_generic_mach_o_64bit-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
@@ -430,6 +431,7 @@ Makefile: ../NetworkDemo/NetworkDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/m
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -462,6 +464,7 @@ Makefile: ../NetworkDemo/NetworkDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/m
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Resources/QtGui.prl \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Resources/QtNetwork.prl \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore5Compat.framework/Resources/QtCore5Compat.prl \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Resources/QtCore.prl
 	$(QMAKE) -o Makefile ../NetworkDemo/NetworkDemo.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.prf:
@@ -624,6 +627,7 @@ Makefile: ../NetworkDemo/NetworkDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/m
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf:
@@ -656,6 +660,7 @@ Makefile: ../NetworkDemo/NetworkDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/m
 /usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Resources/QtGui.prl:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Resources/QtNetwork.prl:
+/usr/local/Cellar/qt/6.1.0_1/lib/QtCore5Compat.framework/Resources/QtCore5Compat.prl:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Resources/QtCore.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../NetworkDemo/NetworkDemo.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
@@ -699,6 +704,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r NetworkDemo.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -729,9 +735,11 @@ compiler_moc_header_clean:
 moc_mainwindow.cpp: ../NetworkDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
 		moc_predefs.h \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc
-	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc $(DEFINES) --include /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-NetworkDemo-Desktop_x86_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/NetworkDemo -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/usr/local/Cellar/qt/6.1.0_1/lib ../NetworkDemo/mainwindow.h -o moc_mainwindow.cpp
+	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc $(DEFINES) --include /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-NetworkDemo-Desktop_x86_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/NetworkDemo -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore5Compat.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/usr/local/Cellar/qt/6.1.0_1/lib ../NetworkDemo/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -759,6 +767,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 main.o: ../NetworkDemo/main.cpp ../NetworkDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QApplication \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../NetworkDemo/main.cpp
@@ -766,7 +776,15 @@ main.o: ../NetworkDemo/main.cpp ../NetworkDemo/mainwindow.h \
 mainwindow.o: ../NetworkDemo/mainwindow.cpp ../NetworkDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		ui_mainwindow.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		ui_mainwindow.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QJsonObject \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qjsonobject.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/QJsonParseError \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers/qjsondocument.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers/QNetworkReply \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtNetwork.framework/Headers/qnetworkreply.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../NetworkDemo/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

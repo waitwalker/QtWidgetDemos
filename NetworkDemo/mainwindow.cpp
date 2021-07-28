@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QNetworkReply>
+#include <QTextCodec>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,24 +22,31 @@ MainWindow::MainWindow(QWidget *parent)
 
     manager->get(request);
     connect(manager,&QNetworkAccessManager::finished,[=](QNetworkReply *reply){
-        qDebug()<<reply->readAll();
-        QString str = reply->readAll();
-        if (str.isEmpty())
-                   return 0;
-        // 解析Json字符串
-        QJsonParseError error;
-        QJsonDocument document = QJsonDocument::fromJson(str.toUtf8(), &error);
-        // 字符串没有错误
-        if (!document.isEmpty() && (error.error == QJsonParseError::NoError)) {
-            // 转为Json对象
-            QJsonObject json = document.object();
-            // 取校验的值
-            QJsonValue code = json.value("code");
-            QJsonValue data = json.value("data");
-            if (!code.isUndefined() && !data.isUndefined() && 1 == code.toDouble() && data.isObject()) {
-                 QJsonObject dataObj = data.toObject();
+
+        int statusCode  = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        qDebug()<<statusCode;
+        if (statusCode == 200) {
+            // 准备读数据
+            QTextCodec *codec = QTextCodec::codecForName("utf8");
+            QString all = codec->toUnicode(reply->readAll());
+            qDebug() << all;
+
+            QJsonParseError jsonError;
+            QJsonDocument document = QJsonDocument::fromJson(all.toUtf8(),&jsonError);
+
+            if (jsonError.error != QJsonParseError::NoError) {
+                qDebug()<<"JSON解析失败";
             }
+
+            if (document.isObject()) {
+                QJsonObject obj = document.object();
+                QJsonValue value = obj.take("msg");
+
+                qDebug()<<value.toString();
+            }
+
         }
+
         return 0;
     });
 }
