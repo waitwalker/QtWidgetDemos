@@ -14,3 +14,9 @@
 
 ![面积图表](https://github.com/waitwalker/Resources/blob/master/Qt/qt_area_chart.png?raw=true)
 
+
+# ImageScaling
+[源码](https://github.com/waitwalker/QtWidgetDemos/tree/main/ImageScaling)
+
+
+![面积图表](https://github.com/waitwalker/Resources/blob/master/Qt/qt_image_scaling.png?raw=true)
