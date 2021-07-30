@@ -17,6 +17,9 @@ public:
 
     QList<QUrl> getUrls() const;
 
+signals:
+    void getImageURLS(QList<QString> &imageUrls);
+
 private:
     Ui::DownloadDialog *ui;
 };

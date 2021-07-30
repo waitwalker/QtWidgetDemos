@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QNetworkReply>
 #include <QPromise>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +14,46 @@ MainWindow::MainWindow(QWidget *parent)
 
     addUrlsButton = new QPushButton(tr("Add URLs"));
 
+    downloadDialog = new DownloadDialog();
+
+    connect(downloadDialog,&DownloadDialog::getImageURLS,[=](QList<QString> &urlStrings){
+        replies.clear();
+        if (urlStrings.isEmpty()) {
+            return ;
+        }
+
+        qDebug()<<urlStrings;
+
+        QList<QUrl> urls;
+        for (auto urlString:urlStrings ) {
+            urls.push_back(QUrl(urlString));
+        }
+
+        cancelButton->setEnabled(true);
+        initLayout(urls.size());
+
+        downloadFuture = download(urls);
+        statusBar->showMessage("正在下载...");
+
+        downloadFuture
+                .then([this](auto) { cancelButton->setEnabled(false); })
+                .then(QtFuture::Launch::Async,[this]{QMetaObject::invokeMethod(this,[this] { updateStatus(tr("Scaling...")); });
+                          return scaled();})
+                .then(this, [this](const QList<QImage> &scaled) {
+                    showImages(scaled);
+                    updateStatus(tr("Finished"));
+                })
+                .onCanceled([this] { updateStatus(tr("Download has been canceled.")); })
+                .onFailed([this](QNetworkReply::NetworkError error) {
+                    updateStatus(tr("Download finished with error: %1").arg(error));
+
+                    // Abort all pending requests
+                    abortDownload();
+                })
+                .onFailed([this](const std::exception& ex) {
+                    updateStatus(tr(ex.what()));
+                });
+    });
 
     cancelButton = new QPushButton("Cancel");
     cancelButton->setEnabled(false);
@@ -38,10 +79,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setCentralWidget(mainWidget);
 
     connect(addUrlsButton,&QPushButton::clicked,[=](){
-        replies.clear();
-        if (downloadDialog->exec() == QDialog::Accepted) {
-            //const auto urls = downloadDialog->getUrls();
-        }
+        downloadDialog->show();
     });
 
     connect(cancelButton,&QPushButton::clicked,[=](){
