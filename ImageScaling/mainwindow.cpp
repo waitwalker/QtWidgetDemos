@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QNetworkReply>
+#include <QPromise>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -37,7 +38,10 @@ MainWindow::MainWindow(QWidget *parent)
     this->setCentralWidget(mainWidget);
 
     connect(addUrlsButton,&QPushButton::clicked,[=](){
-
+        replies.clear();
+        if (downloadDialog->exec() == QDialog::Accepted) {
+            //const auto urls = downloadDialog->getUrls();
+        }
     });
 
     connect(cancelButton,&QPushButton::clicked,[=](){
@@ -74,12 +78,57 @@ void MainWindow::initLayout(qsizetype count)
 
 QFuture<QByteArray> MainWindow::download(const QList<QUrl> &urls)
 {
+    QSharedPointer<QPromise<QByteArray>> promise(new QPromise<QByteArray>());
+    promise->start();
 
+    for(auto url: urls) {
+        QSharedPointer<QNetworkReply> reply(qnam.get(QNetworkRequest(url)));
+        replies.push_back(reply);
+
+        QtFuture::connect(reply.get(),&QNetworkReply::finished).then([=]{
+            if (promise->isCanceled()) {
+                if (!promise->future().isFinished()) {
+                    promise->finish();
+                }
+                return;
+            }
+
+            if (reply->error() != QNetworkReply::NoError) {
+                if (!promise->future().isFinished()) {
+                    throw reply->error();
+                }
+            }
+
+            promise->addResult(reply->readAll());
+
+            if (promise->future().resultCount() == urls.size()) {
+                promise->finish();
+            }
+        }).onFailed([=] (QNetworkReply::NetworkError error){
+            promise->setException(std::make_exception_ptr(error));
+            promise->finish();
+        }).onFailed([=]{
+            const auto ex = std::make_exception_ptr(std::runtime_error("Unknown error"));
+            promise->setException(ex);
+            promise->finish();
+        });
+    }
+    return promise->future();
 }
 
 QList<QImage> MainWindow::scaled() const
 {
-
+    QList<QImage> scaled;
+    const auto data = downloadFuture.results();
+    for (auto imgData : data ) {
+        QImage image;
+        image.loadFromData(imgData);
+        if (image.isNull()) {
+            throw std::runtime_error("Failed to load image.");
+        }
+        scaled.push_back(image.scaled(100,120,Qt::KeepAspectRatio));
+    }
+    return scaled;
 }
 
 void MainWindow::updateStatus(const QString &msg)
@@ -89,7 +138,10 @@ void MainWindow::updateStatus(const QString &msg)
 
 void MainWindow::showImages(const QList<QImage> &images)
 {
-
+    for (int i = 0; i < images.size() ; ++i ) {
+        labels[i]->setAlignment(Qt::AlignCenter);
+        labels[i]->setPixmap(QPixmap::fromImage(images[i]));
+    }
 }
 
 void MainWindow::abortDownload()

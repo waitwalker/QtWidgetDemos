@@ -6,9 +6,17 @@ DownloadDialog::DownloadDialog(QWidget *parent) :
     ui(new Ui::DownloadDialog)
 {
     ui->setupUi(this);
+
 }
 
 DownloadDialog::~DownloadDialog()
 {
     delete ui;
+}
+
+QList<QUrl> DownloadDialog::getUrls() const {
+    QList<QUrl> urls;
+    for (auto row = 0; row < ui->urlListWidget.count;++row) {
+
+    }
 }

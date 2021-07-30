@@ -15,6 +15,8 @@ public:
     explicit DownloadDialog(QWidget *parent = nullptr);
     ~DownloadDialog();
 
+    QList<QUrl> getUrls() const;
+
 private:
     Ui::DownloadDialog *ui;
 };
