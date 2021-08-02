@@ -53,11 +53,14 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../MenuBarDemo/main.cpp \
-		../MenuBarDemo/mainwindow.cpp moc_mainwindow.cpp
+		../MenuBarDemo/mainwindow.cpp qrc_res.cpp \
+		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		qrc_res.o \
 		moc_mainwindow.o
-DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.prf \
+DIST          = ../MenuBarDemo/images/input_icon.png \
+		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/device_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/common/unix.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/common/mac.conf \
@@ -217,6 +220,7 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		../MenuBarDemo/.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -255,7 +259,7 @@ TARGET        = MenuBarDemo.app/Contents/MacOS/MenuBarDemo
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 11.3
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-MenuBarDemo-Desktop_x86_darwin_generic_mach_o_64bit-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
@@ -430,6 +434,7 @@ Makefile: ../MenuBarDemo/MenuBarDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/m
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -459,6 +464,7 @@ Makefile: ../MenuBarDemo/MenuBarDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/m
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
 		../MenuBarDemo/MenuBarDemo.pro \
+		../MenuBarDemo/res.qrc \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Resources/QtGui.prl \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Resources/QtCore.prl
@@ -623,6 +629,7 @@ Makefile: ../MenuBarDemo/MenuBarDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/m
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf:
@@ -652,6 +659,7 @@ Makefile: ../MenuBarDemo/MenuBarDemo.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/m
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf:
 ../MenuBarDemo/MenuBarDemo.pro:
+../MenuBarDemo/res.qrc:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Resources/QtGui.prl:
 /usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Resources/QtCore.prl:
@@ -684,6 +692,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../MenuBarDemo/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../MenuBarDemo/mainwindow.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../MenuBarDemo/main.cpp ../MenuBarDemo/mainwindow.cpp $(DISTDIR)/
@@ -697,6 +706,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r MenuBarDemo.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -713,8 +723,13 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_res.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_res.cpp
+qrc_res.cpp: ../MenuBarDemo/res.qrc \
+		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/rcc
+	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/rcc -name res ../MenuBarDemo/res.qrc -o qrc_res.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -750,7 +765,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -768,6 +783,9 @@ mainwindow.o: ../MenuBarDemo/mainwindow.cpp ../MenuBarDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMenu \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmenu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../MenuBarDemo/mainwindow.cpp
+
+qrc_res.o: qrc_res.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

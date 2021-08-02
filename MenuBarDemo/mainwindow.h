@@ -17,5 +17,19 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+private:
+    void initMenu();
+
+    void setupFileMenu();
+    void setupEditMenu();
+    void setupViewMenu();
+    void setupHistoryMenu();
+    void setupBookmarkMenu();
+    void setupPersonDataMenu();
+    void setupLabelPageMenu();
+    void setupWindowMenu();
+    void setupHelpMenu();
+
 };
 #endif // MAINWINDOW_H

@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/airdrop_icon.png</file>
+        <file>images/chrome_icon.png</file>
+        <file>images/memorandum_icon.png</file>
+        <file>images/message_icon.png</file>
+        <file>images/more_icon.png</file>
+        <file>images/reminders_icon.png</file>
+        <file>images/simulator_icon.png</file>
+        <file>images/wechat_icon.png</file>
+        <file>images/input_icon.png</file>
+    </qresource>
+</RCC>
