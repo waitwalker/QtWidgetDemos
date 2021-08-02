@@ -564,6 +564,71 @@ void MainWindow::setupPersonDataMenu()
 
 void MainWindow::setupLabelPageMenu()
 {
+    QMenu *labelPageMenu = menuBar()->addMenu("标签页");
+
+    QAction *addLabelRightAction = new QAction("在右侧新增标签页");
+    connect(addLabelRightAction,&QAction::triggered,[=](){
+        qDebug()<<"在右侧新增标签页";
+    });
+    labelPageMenu->addAction(addLabelRightAction);
+
+    QAction *selectNextLabelAction = new QAction("选择下一个标签");
+    selectNextLabelAction->setShortcut(QKeySequence("CTRL+→"));
+    connect(selectNextLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"选择下一个标签";
+    });
+    labelPageMenu->addAction(selectNextLabelAction);
+
+    QAction *selectPreviousLabelAction = new QAction("选择上一个标签");
+    selectPreviousLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+→"));
+    connect(selectPreviousLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"选择上一个标签";
+    });
+    labelPageMenu->addAction(selectPreviousLabelAction);
+
+
+    QAction *copyLabelAction = new QAction("赋值标签");
+    connect(copyLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"赋值标签";
+    });
+    labelPageMenu->addAction(copyLabelAction);
+
+    QAction *shutdownVoiceAction = new QAction("将单个网站静音");
+    connect(shutdownVoiceAction,&QAction::triggered,[=](){
+        qDebug()<<"将单个网站静音";
+    });
+    labelPageMenu->addAction(shutdownVoiceAction);
+
+    QAction *fixLabelAction = new QAction("固定标签页");
+    connect(fixLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"固定标签页";
+    });
+    labelPageMenu->addAction(fixLabelAction);
+
+    QAction *createLabelGroupAction = new QAction("为标签页建组");
+    connect(createLabelGroupAction,&QAction::triggered,[=](){
+        qDebug()<<"为标签页建组";
+    });
+    labelPageMenu->addAction(createLabelGroupAction);
+
+    QAction *closeOtherLabelAction = new QAction("关闭其他标签页");
+    connect(closeOtherLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"关闭其他标签页";
+    });
+    labelPageMenu->addAction(closeOtherLabelAction);
+
+    QAction *closeRightLabelAction = new QAction("关闭右侧标签页");
+    connect(closeRightLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"关闭右侧标签页";
+    });
+    labelPageMenu->addAction(closeRightLabelAction);
+
+    QAction *addLabelToNewWindowAction = new QAction("将标签页移至新窗口");
+    connect(addLabelToNewWindowAction,&QAction::triggered,[=](){
+        qDebug()<<"将标签页移至新窗口";
+    });
+    labelPageMenu->addAction(addLabelToNewWindowAction);
+    labelPageMenu->addSeparator();
 
 }
 
