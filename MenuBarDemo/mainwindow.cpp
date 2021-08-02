@@ -484,6 +484,7 @@ void MainWindow::setupHistoryMenu()
         qDebug()<<"前进";
     });
     historyMenu->addAction(forwardAction);
+    historyMenu->addSeparator();
 
     QAction *recentLabelAction = new QAction("最近关闭的标签页",this);
     recentLabelAction->setEnabled(false);
@@ -491,6 +492,7 @@ void MainWindow::setupHistoryMenu()
         qDebug()<<"最近关闭的标签页";
     });
     historyMenu->addAction(recentLabelAction);
+    historyMenu->addSeparator();
 
     QAction *recentHistoryAction = new QAction("最近访问过的内容",this);
     recentHistoryAction->setEnabled(false);
@@ -498,6 +500,7 @@ void MainWindow::setupHistoryMenu()
         qDebug()<<"最近访问过的内容";
     });
     historyMenu->addAction(recentHistoryAction);
+    historyMenu->addSeparator();
 
     QAction *allHistoryAction = new QAction("显示全部历史记录",this);
     allHistoryAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_Y));
