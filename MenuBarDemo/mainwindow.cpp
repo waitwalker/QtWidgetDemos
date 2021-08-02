@@ -634,6 +634,81 @@ void MainWindow::setupLabelPageMenu()
 
 void MainWindow::setupWindowMenu()
 {
+    QMenu *windowMenu = menuBar()->addMenu("窗口");
+
+    QAction *minAction = new QAction("最小化",this);
+    minAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_M));
+    connect(minAction,&QAction::triggered,[=](){
+        qDebug()<<"最小化";
+    });
+    windowMenu->addAction(minAction);
+
+    QAction *scaleAction = new QAction("缩放",this);
+    connect(scaleAction,&QAction::triggered,[=](){
+        qDebug()<<"缩放";
+    });
+    windowMenu->addAction(scaleAction);
+
+    QAction *moveToLeftAction = new QAction("将窗口拼贴到屏幕左侧",this);
+    connect(moveToLeftAction,&QAction::triggered,[=](){
+        qDebug()<<"将窗口拼贴到屏幕左侧";
+    });
+    windowMenu->addAction(moveToLeftAction);
+
+    QAction *moveToRightAction = new QAction("将窗口拼贴到屏幕右侧",this);
+    connect(moveToRightAction,&QAction::triggered,[=](){
+        qDebug()<<"将窗口拼贴到屏幕右侧";
+    });
+    windowMenu->addAction(moveToRightAction);
+    windowMenu->addSeparator();
+
+    QAction *moveToAction = new QAction("移到\"S24E390\"",this);
+    connect(moveToAction,&QAction::triggered,[=](){
+        qDebug()<<"移到\"S24E390\"";
+    });
+    windowMenu->addAction(moveToAction);
+    windowMenu->addSeparator();
+
+    QAction *showToLabelAction = new QAction("显示为标签页",this);
+    showToLabelAction->setEnabled(false);
+    connect(showToLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"显示为标签页";
+    });
+    windowMenu->addAction(showToLabelAction);
+
+    QAction *renameAction = new QAction("为窗口命名...",this);
+    connect(renameAction,&QAction::triggered,[=](){
+        qDebug()<<"为窗口命名...";
+    });
+    windowMenu->addAction(renameAction);
+    windowMenu->addSeparator();
+
+    QAction *downloadAction = new QAction("下载内容",this);
+    downloadAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::CTRL|Qt::Key_J));
+    connect(downloadAction,&QAction::triggered,[=](){
+        qDebug()<<"下载内容";
+    });
+    windowMenu->addAction(downloadAction);
+
+    QAction *expandAction = new QAction("扩展程序",this);
+    connect(expandAction,&QAction::triggered,[=](){
+        qDebug()<<"扩展程序";
+    });
+    windowMenu->addAction(expandAction);
+
+    QAction *taskAction = new QAction("任务管理器",this);
+    connect(taskAction,&QAction::triggered,[=](){
+        qDebug()<<"任务管理器";
+    });
+    windowMenu->addAction(taskAction);
+    windowMenu->addSeparator();
+
+    QAction *frontAction = new QAction("前置全部窗口",this);
+    connect(frontAction,&QAction::triggered,[=](){
+        qDebug()<<"前置全部窗口";
+    });
+    windowMenu->addAction(frontAction);
+    windowMenu->addSeparator();
 
 }
 
