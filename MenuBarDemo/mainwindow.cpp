@@ -513,7 +513,27 @@ void MainWindow::setupHistoryMenu()
 
 void MainWindow::setupBookmarkMenu()
 {
+    QMenu *bookmarkMenu = menuBar()->addMenu("书签");
+    QAction *bookmarkManagerAction = new QAction("书签管理器");
+    bookmarkManagerAction->setShortcut(QKeySequence(Qt::CTRL|Qt::ALT|Qt::Key_B));
+    connect(bookmarkManagerAction,&QAction::triggered,[=](){
+        qDebug()<<"书签管理器";
+    });
+    bookmarkMenu->addAction(bookmarkManagerAction);
 
+    QAction *addBookmarkForLabelAction = new QAction("为此标签页添加书签...");
+    addBookmarkForLabelAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_D));
+    connect(addBookmarkForLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"为此标签页添加书签...";
+    });
+    bookmarkMenu->addAction(addBookmarkForLabelAction);
+
+    QAction *addBookmarkForAllAction = new QAction("为所有标签页添加书签...");
+    addBookmarkForAllAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_D));
+    connect(addBookmarkForAllAction,&QAction::triggered,[=](){
+        qDebug()<<"为所有标签页添加书签...";
+    });
+    bookmarkMenu->addAction(addBookmarkForAllAction);
 }
 
 void MainWindow::setupPersonDataMenu()
