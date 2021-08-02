@@ -461,7 +461,51 @@ void MainWindow::setupViewMenu()
 
 void MainWindow::setupHistoryMenu()
 {
+    QMenu *historyMenu = menuBar()->addMenu("历史记录");
 
+    QAction *homePageAction = new QAction("首页",this);
+    homePageAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_H));
+    connect(homePageAction,&QAction::triggered,[=](){
+        qDebug()<<"首页";
+    });
+    historyMenu->addAction(homePageAction);
+
+    QAction *backAction = new QAction("返回",this);
+    backAction->setShortcut(QKeySequence("CTRL+["));
+    connect(backAction,&QAction::triggered,[=](){
+        qDebug()<<"返回";
+    });
+    historyMenu->addAction(backAction);
+
+    QAction *forwardAction = new QAction("前进",this);
+    forwardAction->setShortcut(QKeySequence("CTRL+]"));
+    forwardAction->setEnabled(false);
+    connect(forwardAction,&QAction::triggered,[=](){
+        qDebug()<<"前进";
+    });
+    historyMenu->addAction(forwardAction);
+
+    QAction *recentLabelAction = new QAction("最近关闭的标签页",this);
+    recentLabelAction->setEnabled(false);
+    connect(recentLabelAction,&QAction::triggered,[=](){
+        qDebug()<<"最近关闭的标签页";
+    });
+    historyMenu->addAction(recentLabelAction);
+
+    QAction *recentHistoryAction = new QAction("最近访问过的内容",this);
+    recentHistoryAction->setEnabled(false);
+    connect(recentHistoryAction,&QAction::triggered,[=](){
+        qDebug()<<"最近访问过的内容";
+    });
+    historyMenu->addAction(recentHistoryAction);
+
+    QAction *allHistoryAction = new QAction("显示全部历史记录",this);
+    allHistoryAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_Y));
+    allHistoryAction->setIcon(QIcon(QPixmap(":/images/all_history_icon.png")));
+    connect(allHistoryAction,&QAction::triggered,[=](){
+        qDebug()<<"显示全部历史记录";
+    });
+    historyMenu->addAction(allHistoryAction);
 }
 
 void MainWindow::setupBookmarkMenu()
