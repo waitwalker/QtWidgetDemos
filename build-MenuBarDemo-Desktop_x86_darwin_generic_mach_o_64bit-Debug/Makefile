@@ -52,12 +52,16 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../MenuBarDemo/main.cpp \
+SOURCES       = ../MenuBarDemo/SearchAction.cpp \
+		../MenuBarDemo/main.cpp \
 		../MenuBarDemo/mainwindow.cpp qrc_res.cpp \
+		moc_SearchActionction.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = main.o \
+OBJECTS       = SearchAction.o \
+		main.o \
 		mainwindow.o \
 		qrc_res.o \
+		moc_SearchActionction.o \
 		moc_mainwindow.o
 DIST          = ../MenuBarDemo/images/input_icon.png \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.prf \
@@ -249,7 +253,9 @@ DIST          = ../MenuBarDemo/images/input_icon.png \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exceptions.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
-		../MenuBarDemo/MenuBarDemo.pro ../MenuBarDemo/mainwindow.h ../MenuBarDemo/main.cpp \
+		../MenuBarDemo/MenuBarDemo.pro ../MenuBarDemo/SearchActionction.h \
+		../MenuBarDemo/mainwindow.h ../MenuBarDemo/SearchAction.cpp \
+		../MenuBarDemo/main.cpp \
 		../MenuBarDemo/mainwindow.cpp
 QMAKE_TARGET  = MenuBarDemo
 DESTDIR       = 
@@ -694,8 +700,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../MenuBarDemo/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../MenuBarDemo/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../MenuBarDemo/main.cpp ../MenuBarDemo/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../MenuBarDemo/SearchActionction.h ../MenuBarDemo/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../MenuBarDemo/SearchAction.cpp ../MenuBarDemo/main.cpp ../MenuBarDemo/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../MenuBarDemo/mainwindow.ui $(DISTDIR)/
 
 
@@ -736,9 +742,18 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_SearchActionction.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_SearchActionction.cpp moc_mainwindow.cpp
+moc_SearchActionction.cpp: ../MenuBarDemo/SearchActionction.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidgetAction \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc
+	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc $(DEFINES) --include /Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/build-MenuBarDemo-Desktop_x86_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/github_projects/QtWidgetDemos/MenuBarDemo -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/usr/local/Cellar/qt/6.1.0_1/lib ../MenuBarDemo/SearchActionction.h -o moc_SearchActionction.cpp
+
 moc_mainwindow.cpp: ../MenuBarDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -769,6 +784,13 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
+SearchAction.o: ../MenuBarDemo/SearchAction.cpp ../MenuBarDemo/SearchActionction.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidgetAction \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidgetaction.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SearchAction.o ../MenuBarDemo/SearchAction.cpp
+
 main.o: ../MenuBarDemo/main.cpp ../MenuBarDemo/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -786,6 +808,9 @@ mainwindow.o: ../MenuBarDemo/mainwindow.cpp ../MenuBarDemo/mainwindow.h \
 
 qrc_res.o: qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
+
+moc_SearchActionction.o: moc_SearchActionction.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_SearchActionction.o moc_SearchActionction.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

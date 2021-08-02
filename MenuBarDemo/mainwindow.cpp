@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "SearchAction.h"
 #include <QMenu>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -714,6 +714,22 @@ void MainWindow::setupWindowMenu()
 
 void MainWindow::setupHelpMenu()
 {
+    QMenu *helpMenu = menuBar()->addMenu("帮助");
 
+//    SearchAction *searchAction = new SearchAction();
+//    helpMenu->addAction(searchAction);
+
+    QAction *reportAction = new QAction("报告问题...",this);
+    reportAction->setShortcut(QKeySequence(Qt::CTRL|Qt::ALT|Qt::SHIFT|Qt::Key_I));
+    connect(reportAction,&QAction::triggered,[=](){
+        qDebug()<<"报告问题...";
+    });
+    helpMenu->addAction(reportAction);
+
+    QAction *chromeHelpAction = new QAction("Google Chrome帮助",this);
+    connect(chromeHelpAction,&QAction::triggered,[=](){
+        qDebug()<<"Google Chrome帮助";
+    });
+    helpMenu->addAction(chromeHelpAction);
 }
 
