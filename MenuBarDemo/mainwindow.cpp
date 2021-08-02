@@ -538,6 +538,27 @@ void MainWindow::setupBookmarkMenu()
 
 void MainWindow::setupPersonDataMenu()
 {
+    QMenu *personDataMenu = menuBar()->addMenu("个人资料");
+    QAction *userAction = new QAction("上海的风",this);
+    userAction->setIcon(QIcon(QPixmap(":/images/user_icon.png")));
+    connect(userAction,&QAction::triggered,[=](){
+        qDebug()<<"上海的风";
+    });
+    personDataMenu->addAction(userAction);
+    personDataMenu->addSeparator();
+
+    QAction *editAction = new QAction("编辑...",this);
+    connect(editAction,&QAction::triggered,[=](){
+        qDebug()<<"编辑...";
+    });
+    personDataMenu->addAction(editAction);
+    personDataMenu->addSeparator();
+
+    QAction *addInfoAction = new QAction("添加个人资料...",this);
+    connect(addInfoAction,&QAction::triggered,[=](){
+        qDebug()<<"添加个人资料...";
+    });
+    personDataMenu->addAction(addInfoAction);
 
 }
 

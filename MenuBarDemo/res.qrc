@@ -10,5 +10,6 @@
         <file>images/wechat_icon.png</file>
         <file>images/input_icon.png</file>
         <file>images/all_history_icon.png</file>
+        <file>images/user_icon.png</file>
     </qresource>
 </RCC>
