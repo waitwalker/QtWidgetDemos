@@ -346,7 +346,117 @@ void MainWindow::setupEditMenu()
 
 void MainWindow::setupViewMenu()
 {
+    QMenu *viewMenu = menuBar()->addMenu("视图");
+    QAction *alwaysShowAction = new QAction("√  总是显示书签栏");
+    alwaysShowAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_B));
+    connect(alwaysShowAction,&QAction::triggered,[=](){
+        qDebug()<<"√  总是显示书签栏";
+    });
+    viewMenu->addAction(alwaysShowAction);
 
+    QAction *alwaysFullScreenShowAction = new QAction("√  在全屏模式下始终显示书签栏");
+    alwaysFullScreenShowAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_F));
+    connect(alwaysFullScreenShowAction,&QAction::triggered,[=](){
+        qDebug()<<"√  在全屏模式下始终显示书签栏";
+    });
+    viewMenu->addAction(alwaysFullScreenShowAction);
+
+    QAction *alwaysFullAddressShowAction = new QAction("    总是显示完整网址");
+    connect(alwaysFullAddressShowAction,&QAction::triggered,[=](){
+        qDebug()<<"总是显示完整网址";
+    });
+    viewMenu->addAction(alwaysFullAddressShowAction);
+
+    viewMenu->addSeparator();
+
+    QAction *stopAction = new QAction("    停止");
+    stopAction->setShortcut(QKeySequence("CTRL+."));
+    stopAction->setEnabled(false);
+    connect(stopAction,&QAction::triggered,[=](){
+        qDebug()<<"停止";
+    });
+    viewMenu->addAction(stopAction);
+
+    QAction *forceAction = new QAction("    强制重新加载此页");
+    forceAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_R));
+    connect(forceAction,&QAction::triggered,[=](){
+        qDebug()<<"强制重新加载此页";
+    });
+    viewMenu->addAction(forceAction);
+    viewMenu->addSeparator();
+
+    QAction *fullScreenAction = new QAction("    进入全屏幕");
+    fullScreenAction->setShortcut(QKeySequence(Qt::UpArrow|Qt::CTRL|Qt::Key_F));
+    connect(fullScreenAction,&QAction::triggered,[=](){
+        qDebug()<<"进入全屏幕";
+    });
+    viewMenu->addAction(forceAction);
+
+    QAction *realSizeAction = new QAction("    实际大小");
+    realSizeAction->setShortcut(QKeySequence("CTRL+O"));
+    realSizeAction->setEnabled(false);
+    connect(realSizeAction,&QAction::triggered,[=](){
+        qDebug()<<"实际大小";
+    });
+    viewMenu->addAction(realSizeAction);
+
+    QAction *increaseAction = new QAction("    放大");
+    increaseAction->setShortcut(QKeySequence("CTRL++"));
+    connect(increaseAction,&QAction::triggered,[=](){
+        qDebug()<<"放大";
+    });
+    viewMenu->addAction(increaseAction);
+
+    QAction *decreaseAction = new QAction("    缩小");
+    decreaseAction->setShortcut(QKeySequence("CTRL+-"));
+    connect(decreaseAction,&QAction::triggered,[=](){
+        qDebug()<<"缩小";
+    });
+    viewMenu->addAction(decreaseAction);
+    viewMenu->addSeparator();
+
+    QAction *throwAction = new QAction("    投射...");
+    connect(throwAction,&QAction::triggered,[=](){
+        qDebug()<<"缩小";
+    });
+    viewMenu->addAction(throwAction);
+    viewMenu->addSeparator();
+
+    QMenu *developerMenu = viewMenu->addMenu("    开发者");
+
+    QAction *showCodeAction = new QAction("显示源代码");
+    showCodeAction->setShortcut(QKeySequence(Qt::CTRL|Qt::ALT|Qt::Key_U));
+    connect(showCodeAction,&QAction::triggered,[=](){
+        qDebug()<<"显示源代码";
+    });
+    developerMenu->addAction(showCodeAction);
+
+    QAction *developerToolAction = new QAction("开发者工具");
+    developerToolAction->setShortcut(QKeySequence(Qt::CTRL|Qt::ALT|Qt::Key_I));
+    connect(developerToolAction,&QAction::triggered,[=](){
+        qDebug()<<"开发者工具";
+    });
+    developerMenu->addAction(developerToolAction);
+
+    QAction *checkElementAction = new QAction("检查元素");
+    checkElementAction->setShortcut(QKeySequence(Qt::CTRL|Qt::ALT|Qt::Key_C));
+    connect(checkElementAction,&QAction::triggered,[=](){
+        qDebug()<<"检查元素";
+    });
+    developerMenu->addAction(checkElementAction);
+
+    QAction *javaScriptAction = new QAction("JavaScript控制台");
+    javaScriptAction->setShortcut(QKeySequence(Qt::CTRL|Qt::ALT|Qt::Key_J));
+    connect(javaScriptAction,&QAction::triggered,[=](){
+        qDebug()<<"JavaScript控制台";
+    });
+    developerMenu->addAction(javaScriptAction);
+
+    QAction *allowAppleJavaScriptAction = new QAction("允许Apple事件中的JavaScript");
+    connect(allowAppleJavaScriptAction,&QAction::triggered,[=](){
+        qDebug()<<"允许Apple事件中的JavaScript";
+    });
+    developerMenu->addAction(allowAppleJavaScriptAction);
 }
 
 void MainWindow::setupHistoryMenu()
