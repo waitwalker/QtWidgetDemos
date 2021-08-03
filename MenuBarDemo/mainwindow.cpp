@@ -18,6 +18,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::initMenu()
 {
+    // About
+    setupFirstHelpMenu();
 
     // 文件
     setupFileMenu();
@@ -48,8 +50,31 @@ void MainWindow::initMenu()
 
 }
 
+void MainWindow::setupFirstHelpMenu()
+{
+    QMenu *helpAboutMenu = new QMenu(this);
+    QAction *aboutAction = new QAction("&About",this);
+    connect(aboutAction,&QAction::triggered,[=](){
+        qDebug()<<"About";
+    });
+    helpAboutMenu->addAction(aboutAction);
+    menuBar()->addMenu(helpAboutMenu)->setText("&Help");
+
+    QMenu *helpPreferenceMenu = new QMenu(this);
+    QAction *preferenceAction = new QAction("&Preference",this);
+    connect(preferenceAction,&QAction::triggered,[=](){
+        qDebug()<<"Preference";
+    });
+    helpPreferenceMenu->addAction(preferenceAction);
+    menuBar()->addMenu(helpPreferenceMenu)->setText("&Help");
+
+    menuBar()->setNativeMenuBar(true);
+
+}
+
 void MainWindow::setupFileMenu()
 {
+
     QMenu *fileMenu = menuBar()->addMenu("文件");
 
     QAction *newBookMarkAction = new QAction("新标签页",this);
@@ -709,7 +734,6 @@ void MainWindow::setupWindowMenu()
     });
     windowMenu->addAction(frontAction);
     windowMenu->addSeparator();
-
 }
 
 void MainWindow::setupHelpMenu()

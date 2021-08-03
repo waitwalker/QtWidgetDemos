@@ -21,6 +21,7 @@ private:
 private:
     void initMenu();
 
+    void setupFirstHelpMenu();
     void setupFileMenu();
     void setupEditMenu();
     void setupViewMenu();
