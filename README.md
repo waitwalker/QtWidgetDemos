@@ -20,3 +20,10 @@
 
 
 ![面积图表](https://github.com/waitwalker/Resources/blob/master/Qt/qt_image_scaling.png?raw=true)
+
+
+# MenuBarDemo
+[源码](https://github.com/waitwalker/QtWidgetDemos/tree/main/MenuBarDemo)
+
+
+![MenuBar](https://github.com/waitwalker/Resources/blob/master/Qt/qt_menu_bar.png?raw=true)
