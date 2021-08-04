@@ -13,6 +13,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    RasterWindow.h \
+    RasterWindowcpp \
     mainwindow.h
 
 FORMS += \

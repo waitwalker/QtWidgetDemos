@@ -1,0 +1,6 @@
+#include "RasterWindow.h"
+
+RasterWindow::RasterWindow()
+{
+
+}
