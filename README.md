@@ -27,3 +27,10 @@
 
 
 ![MenuBar](https://github.com/waitwalker/Resources/blob/master/Qt/qt_menu_bar.png?raw=true)
+
+
+# ClockDemo
+[源码](https://github.com/waitwalker/QtWidgetDemos/tree/main/ClockDemo)
+
+
+![ClockDemo](https://github.com/waitwalker/Resources/blob/master/Qt/qt_clock.png?raw=true)
