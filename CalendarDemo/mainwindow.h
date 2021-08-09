@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QCheckBox>
+#include <QComboBox>
+#include <QGroupBox>
+#include <QLabel>
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -17,5 +21,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+
 };
 #endif // MAINWINDOW_H

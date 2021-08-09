@@ -8,6 +8,7 @@
 
 #include <memory>
 #include "../CalendarDemo/Window.h"
+#include <QtGui/qtextcursor.h>
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -22,17 +23,21 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Window_t {
-    const uint offsetsAndSize[2];
-    char stringdata0[7];
+    const uint offsetsAndSize[8];
+    char stringdata0[49];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_Window_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_Window_t qt_meta_stringdata_Window = {
     {
-QT_MOC_LITERAL(0, 6) // "Window"
+QT_MOC_LITERAL(0, 6), // "Window"
+QT_MOC_LITERAL(7, 13), // "SelectionMode"
+QT_MOC_LITERAL(21, 11), // "NoSelection"
+QT_MOC_LITERAL(33, 15) // "SingleSelection"
 
     },
-    "Window"
+    "Window\0SelectionMode\0NoSelection\0"
+    "SingleSelection"
 };
 #undef QT_MOC_LITERAL
 
@@ -44,10 +49,17 @@ static const uint qt_meta_data_Window[] = {
        0,    0, // classinfo
        0,    0, // methods
        0,    0, // properties
-       0,    0, // enums/sets
+       1,   14, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
+
+ // enums: name, alias, flags, count, data
+       1,    1, 0x0,    2,   19,
+
+ // enum data: key, value
+       2, uint(Window::NoSelection),
+       3, uint(Window::SingleSelection),
 
        0        // eod
 };
@@ -61,7 +73,7 @@ void Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
 }
 
 const QMetaObject Window::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWindow::staticMetaObject>(),
+    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
     qt_meta_stringdata_Window.offsetsAndSize,
     qt_meta_data_Window,
     qt_static_metacall,
@@ -81,12 +93,12 @@ void *Window::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_Window.stringdata0))
         return static_cast<void*>(this);
-    return QWindow::qt_metacast(_clname);
+    return QWidget::qt_metacast(_clname);
 }
 
 int Window::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWindow::qt_metacall(_c, _id, _a);
+    _id = QWidget::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP
