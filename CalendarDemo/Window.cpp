@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include <QCalendarWidget>
+#include <QHBoxLayout>
 #include <QWidget>
 #include <locale>
 
@@ -10,6 +11,9 @@ Window::Window(QWidget *parent)
     setWindowTitle("日历");
     resize(800,600);
     createGeneralOptionsGroupBox();
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(generalOptionsGroupBox, 0, 1);
+    setLayout(layout);
 }
 
 void Window::createGeneralOptionsGroupBox() {
@@ -67,6 +71,50 @@ void Window::createGeneralOptionsGroupBox() {
     selectionModeLabel->setBuddy(selectionModeCombo);
 
     // 单选框
+    gridCheckBox = new QCheckBox("Grid");
+    gridCheckBox->setChecked(true);
+
+    navigationCheckBox = new QCheckBox("Navigation Bar");
+    navigationCheckBox->setChecked(true);
+
+    // 横向
+    horizontalHeaderCombo = new QComboBox;
+    horizontalHeaderCombo->addItem("Single letter day names",QCalendarWidget::SingleLetterDayNames);
+    horizontalHeaderCombo->addItem("Short day names",QCalendarWidget::ShortDayNames);
+    horizontalHeaderCombo->addItem("None",QCalendarWidget::NoHorizontalHeader);
+    horizontalHeaderCombo->setCurrentIndex(1);
+
+    horizontalHeaderLabel = new QLabel("Horizontal header");
+    horizontalHeaderLabel->setBuddy(horizontalHeaderCombo);
+
+    // 纵向
+    verticalHeaderCombo = new QComboBox;
+    verticalHeaderCombo->addItem("ISO week numbers",QCalendarWidget::ISOWeekNumbers);
+    verticalHeaderCombo->addItem("None",QCalendarWidget::NoVerticalHeader);
+
+    verticalHeaderLabel = new QLabel("Vertical header");
+    verticalHeaderLabel->setBuddy(verticalHeaderCombo);
+
+    QHBoxLayout *checkBoxLayout = new QHBoxLayout;
+    checkBoxLayout->addWidget(gridCheckBox);
+    checkBoxLayout->addStretch();
+    checkBoxLayout->addWidget(navigationCheckBox);
+
+    QGridLayout *outerLayout = new QGridLayout;
+    outerLayout->addWidget(localeLabel, 0,0);
+    outerLayout->addWidget(localeCombo,0,1);
+    outerLayout->addWidget(firstDayLabel,1,0);
+    outerLayout->addWidget(firstDayCombo,1,1);
+    outerLayout->addWidget(selectionModeLabel,2,0);
+    outerLayout->addWidget(selectionModeCombo,2,1);
+    outerLayout->addLayout(checkBoxLayout,3,0,1,2);
+    outerLayout->addWidget(horizontalHeaderLabel,4,0);
+    outerLayout->addWidget(horizontalHeaderCombo,4,1);
+    outerLayout->addWidget(verticalHeaderLabel,5,0);
+    outerLayout->addWidget(verticalHeaderCombo,5,1);
+    generalOptionsGroupBox->setLayout(outerLayout);
+
+
 
 }
 
