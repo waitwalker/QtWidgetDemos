@@ -16,6 +16,7 @@ Window::Window(QWidget *parent)
     setLayout(layout);
 }
 
+// 绘制右侧区域
 void Window::createGeneralOptionsGroupBox() {
     generalOptionsGroupBox = new QGroupBox("General Options");
 
@@ -114,6 +115,35 @@ void Window::createGeneralOptionsGroupBox() {
     outerLayout->addWidget(verticalHeaderCombo,5,1);
     generalOptionsGroupBox->setLayout(outerLayout);
 
+
+    connect(localeCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
+        const QLocale newLocale(localeCombo->itemData(currentIndex).toLocale());
+        qDebug()<<"国际化语言:"<<newLocale;
+    });
+
+    connect(firstDayCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
+        qDebug()<<"星期:"<<firstDayCombo->itemData(currentIndex).toInt();
+    });
+
+    connect(selectionModeCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
+        qDebug()<<"选择模式:"<<selectionModeCombo->itemData(currentIndex).toInt();
+    });
+
+    connect(gridCheckBox,&QCheckBox::toggled,[=](bool checked){
+        qDebug()<<"gridCheckBox是否选中:"<<checked;
+    });
+
+    connect(navigationCheckBox,&QCheckBox::toggled,[=](bool checked){
+        qDebug()<<"navigationCheckBox是否选中:"<<checked;
+    });
+
+    connect(horizontalHeaderCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
+        qDebug()<<"horizontalHeaderCombo:"<<horizontalHeaderCombo->itemData(currentIndex).toInt();
+    });
+
+    connect(verticalHeaderCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
+        qDebug()<<"verticalHeaderCombo:"<<verticalHeaderCombo->itemData(currentIndex).toInt();
+    });
 
 
 }
