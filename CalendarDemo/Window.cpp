@@ -115,7 +115,7 @@ void Window::createGeneralOptionsGroupBox() {
     outerLayout->addWidget(verticalHeaderCombo,5,1);
     generalOptionsGroupBox->setLayout(outerLayout);
 
-
+    // 下拉框点击回调事件
     connect(localeCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
         const QLocale newLocale(localeCombo->itemData(currentIndex).toLocale());
         qDebug()<<"国际化语言:"<<newLocale;
