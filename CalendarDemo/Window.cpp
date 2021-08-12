@@ -125,10 +125,14 @@ void Window::createGeneralOptionsGroupBox() {
         const QLocale newLocale(localeCombo->itemData(currentIndex).toLocale());
         qDebug()<<"国际化语言:"<<newLocale;
         calendar->setLocale(newLocale);
+
+        int newLocaleFirstDayIndex = firstDayCombo->findData(newLocale.firstDayOfWeek());
+        firstDayCombo->setCurrentIndex(newLocaleFirstDayIndex);
     });
 
     connect(firstDayCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
         qDebug()<<"星期:"<<firstDayCombo->itemData(currentIndex).toInt();
+        calendar->setFirstDayOfWeek(Qt::DayOfWeek(firstDayCombo->itemData(currentIndex).toInt()));
     });
 
     connect(selectionModeCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
