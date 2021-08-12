@@ -155,6 +155,7 @@ void Window::createGeneralOptionsGroupBox() {
 
     connect(verticalHeaderCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
         qDebug()<<"verticalHeaderCombo:"<<verticalHeaderCombo->itemData(currentIndex).toInt();
+        calendar->setVerticalHeaderFormat(QCalendarWidget::VerticalHeaderFormat(verticalHeaderCombo->itemData(index).toInt()));
     });
 
 
