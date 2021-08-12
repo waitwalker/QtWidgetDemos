@@ -137,6 +137,7 @@ void Window::createGeneralOptionsGroupBox() {
 
     connect(selectionModeCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
         qDebug()<<"选择模式:"<<selectionModeCombo->itemData(currentIndex).toInt();
+        calendar->setSelectionMode(QCalendarWidget::SelectionMode(selectionModeCombo->itemData(currentIndex).toInt()));
     });
 
     connect(gridCheckBox,&QCheckBox::toggled,[=](bool checked){
