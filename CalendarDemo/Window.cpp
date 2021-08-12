@@ -1,6 +1,4 @@
 #include "Window.h"
-
-#include <QCalendarWidget>
 #include <QHBoxLayout>
 #include <QWidget>
 #include <locale>
@@ -9,9 +7,16 @@ Window::Window(QWidget *parent)
     : QWidget(parent)
 {
     setWindowTitle("日历");
+
+    calendar = new QCalendarWidget;
+    calendar->setMinimumDate(QDate(1900, 1, 1));
+    calendar->setMaximumDate(QDate(3000, 1, 1));
+    calendar->setGridVisible(true);
     resize(800,600);
+    //createPreviewGroupBox();
     createGeneralOptionsGroupBox();
     QGridLayout *layout = new QGridLayout;
+    layout->addWidget(calendar, 0, 0);
     layout->addWidget(generalOptionsGroupBox, 0, 1);
     setLayout(layout);
 }
@@ -119,6 +124,7 @@ void Window::createGeneralOptionsGroupBox() {
     connect(localeCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
         const QLocale newLocale(localeCombo->itemData(currentIndex).toLocale());
         qDebug()<<"国际化语言:"<<newLocale;
+        calendar->setLocale(newLocale);
     });
 
     connect(firstDayCombo,&QComboBox::currentIndexChanged,[=](int currentIndex){
@@ -146,6 +152,18 @@ void Window::createGeneralOptionsGroupBox() {
     });
 
 
+}
+
+void Window::createPreviewGroupBox() {
+    previewGroupBox = new QGroupBox("Preview");
+    calendar = new QCalendarWidget;
+    calendar->setMinimumDate(QDate(1900, 1, 1));
+    calendar->setMaximumDate(QDate(3000, 1, 1));
+    calendar->setGridVisible(true);
+
+    previewLayout = new QGridLayout;
+    previewLayout->addWidget(calendar, 0, 0, Qt::AlignCenter);
+    previewGroupBox->setLayout(previewLayout);
 }
 
 Window::~Window()

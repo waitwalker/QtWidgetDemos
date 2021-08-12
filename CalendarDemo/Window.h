@@ -7,6 +7,8 @@
 #include <QLabel>
 #include <QWindow>
 #include <QWidget>
+#include <QGridLayout>
+#include <QCalendarWidget>
 
 
 
@@ -17,12 +19,6 @@ public:
     Window(QWidget *parent = nullptr);
     ~Window();
 
-public:
-    enum SelectionMode{
-        NoSelection,
-        SingleSelection
-    };
-    Q_ENUM(SelectionMode);
 private:
 
     QGroupBox *generalOptionsGroupBox;
@@ -46,11 +42,14 @@ private:
     QLabel *verticalHeaderLabel;
 
 
-
+    QGroupBox *previewGroupBox;
+    QGridLayout *previewLayout;
+    QCalendarWidget *calendar;
 
 
 
 private:
+    void createPreviewGroupBox();
     void createGeneralOptionsGroupBox();
 };
 

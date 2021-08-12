@@ -23,21 +23,17 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Window_t {
-    const uint offsetsAndSize[8];
-    char stringdata0[49];
+    const uint offsetsAndSize[2];
+    char stringdata0[7];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_Window_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_Window_t qt_meta_stringdata_Window = {
     {
-QT_MOC_LITERAL(0, 6), // "Window"
-QT_MOC_LITERAL(7, 13), // "SelectionMode"
-QT_MOC_LITERAL(21, 11), // "NoSelection"
-QT_MOC_LITERAL(33, 15) // "SingleSelection"
+QT_MOC_LITERAL(0, 6) // "Window"
 
     },
-    "Window\0SelectionMode\0NoSelection\0"
-    "SingleSelection"
+    "Window"
 };
 #undef QT_MOC_LITERAL
 
@@ -49,17 +45,10 @@ static const uint qt_meta_data_Window[] = {
        0,    0, // classinfo
        0,    0, // methods
        0,    0, // properties
-       1,   14, // enums/sets
+       0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
-
- // enums: name, alias, flags, count, data
-       1,    1, 0x0,    2,   19,
-
- // enum data: key, value
-       2, uint(Window::NoSelection),
-       3, uint(Window::SingleSelection),
 
        0        // eod
 };
