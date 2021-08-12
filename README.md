@@ -34,3 +34,10 @@
 
 
 ![ClockDemo](https://github.com/waitwalker/Resources/blob/master/Qt/qt_clock.png?raw=true)
+
+
+# CalendarDemo
+[源码](https://github.com/waitwalker/QtWidgetDemos/tree/main/CalendarDemo)
+
+
+![ClockDemo](https://github.com/waitwalker/Resources/blob/master/Qt/qt_calendar.png?raw=true)
