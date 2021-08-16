@@ -41,3 +41,11 @@
 
 
 ![ClockDemo](https://github.com/waitwalker/Resources/blob/master/Qt/qt_calendar.png?raw=true)
+
+# BasicLayoutDemo
+[源码](https://github.com/waitwalker/QtWidgetDemos/tree/main/BasicLayoutDemo)
+
+
+![ClockDemo](https://github.com/waitwalker/Resources/blob/master/Qt/qt_basic_layout.png?raw=true)
+
+
