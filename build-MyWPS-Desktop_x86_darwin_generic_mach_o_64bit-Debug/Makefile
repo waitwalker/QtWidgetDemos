@@ -52,10 +52,14 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../MyWPS/main.cpp \
-		../MyWPS/mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+SOURCES       = ../MyWPS/HomeWindowcpp.cpp \
+		../MyWPS/main.cpp \
+		../MyWPS/mainwindow.cpp moc_HomeWindow.cpp \
+		moc_mainwindow.cpp
+OBJECTS       = HomeWindowcpp.o \
+		main.o \
 		mainwindow.o \
+		moc_HomeWindow.o \
 		moc_mainwindow.o
 DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/device_config.prf \
@@ -217,6 +221,7 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		../MyWPS/.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -245,7 +250,9 @@ DIST          = /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_pre.
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exceptions.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/lex.prf \
-		../MyWPS/MyWPS.pro ../MyWPS/mainwindow.h ../MyWPS/main.cpp \
+		../MyWPS/MyWPS.pro ../MyWPS/HomeWindow.h \
+		../MyWPS/mainwindow.h ../MyWPS/HomeWindowcpp.cpp \
+		../MyWPS/main.cpp \
 		../MyWPS/mainwindow.cpp
 QMAKE_TARGET  = MyWPS
 DESTDIR       = 
@@ -255,7 +262,7 @@ TARGET        = MyWPS.app/Contents/MacOS/MyWPS
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 11.3
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/waitwalker/Desktop/工作/Demos/Qt/QtWidgetDemos/build-MyWPS-Desktop_x86_darwin_generic_mach_o_64bit-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
@@ -266,7 +273,7 @@ include /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-MyWPS.app/Contents/MacOS/MyWPS: ui_mainwindow.h $(OBJECTS)  
+MyWPS.app/Contents/MacOS/MyWPS: ui_HomeWindow.h ui_mainwindow.h $(OBJECTS)  
 	@test -d MyWPS.app/Contents/MacOS/ || mkdir -p MyWPS.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -430,6 +437,7 @@ Makefile: ../MyWPS/MyWPS.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf \
@@ -623,6 +631,7 @@ Makefile: ../MyWPS/MyWPS.pro /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/qt_config.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang/qmake.conf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/exclusive_builds.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/mac/sdk.prf:
 /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/toolchain.prf:
@@ -685,9 +694,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../MyWPS/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../MyWPS/main.cpp ../MyWPS/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../MyWPS/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../MyWPS/HomeWindow.h ../MyWPS/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../MyWPS/HomeWindowcpp.cpp ../MyWPS/main.cpp ../MyWPS/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../MyWPS/HomeWindow.ui ../MyWPS/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -697,6 +706,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r MyWPS.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -721,9 +731,16 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_HomeWindow.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_HomeWindow.cpp moc_mainwindow.cpp
+moc_HomeWindow.cpp: ../MyWPS/HomeWindow.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc
+	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/moc $(DEFINES) --include /Users/waitwalker/Desktop/工作/Demos/Qt/QtWidgetDemos/build-MyWPS-Desktop_x86_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/usr/local/Cellar/qt/6.1.0_1/share/qt/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/Demos/Qt/QtWidgetDemos/MyWPS -I/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/6.1.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/usr/local/Cellar/qt/6.1.0_1/lib ../MyWPS/HomeWindow.h -o moc_HomeWindow.cpp
+
 moc_mainwindow.cpp: ../MyWPS/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -735,9 +752,13 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_HomeWindow.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_HomeWindow.h ui_mainwindow.h
+ui_HomeWindow.h: ../MyWPS/HomeWindow.ui \
+		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/uic
+	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/uic ../MyWPS/HomeWindow.ui -o ui_HomeWindow.h
+
 ui_mainwindow.h: ../MyWPS/mainwindow.ui \
 		/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/uic
 	/usr/local/Cellar/qt/6.1.0_1/share/qt/libexec/uic ../MyWPS/mainwindow.ui -o ui_mainwindow.h
@@ -754,11 +775,20 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
+HomeWindowcpp.o: ../MyWPS/HomeWindowcpp.cpp ../MyWPS/HomeWindow.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		ui_HomeWindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o HomeWindowcpp.o ../MyWPS/HomeWindowcpp.cpp
+
 main.o: ../MyWPS/main.cpp ../MyWPS/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QApplication \
-		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qapplication.h
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qapplication.h \
+		../MyWPS/HomeWindow.h \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/QWidget \
+		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../MyWPS/main.cpp
 
 mainwindow.o: ../MyWPS/mainwindow.cpp ../MyWPS/mainwindow.h \
@@ -766,6 +796,9 @@ mainwindow.o: ../MyWPS/mainwindow.cpp ../MyWPS/mainwindow.h \
 		/usr/local/Cellar/qt/6.1.0_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../MyWPS/mainwindow.cpp
+
+moc_HomeWindow.o: moc_HomeWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_HomeWindow.o moc_HomeWindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
