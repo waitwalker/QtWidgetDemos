@@ -10,15 +10,18 @@ CONFIG += c++11
 
 SOURCES += \
     HomeWindowcpp.cpp \
+    MainPage.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     HomeWindow.h \
+    MainPage.h \
     mainwindow.h
 
 FORMS += \
     HomeWindow.ui \
+    MainPage.ui \
     mainwindow.ui
 
 # Default rules for deployment.
