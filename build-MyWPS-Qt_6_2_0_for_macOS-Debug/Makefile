@@ -52,17 +52,13 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../MyWPS/HomeWindowcpp.cpp \
-		../MyWPS/MainPage.cpp \
+SOURCES       = ../MyWPS/MainPage.cpp \
 		../MyWPS/main.cpp \
-		../MyWPS/mainwindow.cpp moc_HomeWindow.cpp \
-		moc_MainPage.cpp \
+		../MyWPS/mainwindow.cpp moc_MainPage.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = HomeWindowcpp.o \
-		MainPage.o \
+OBJECTS       = MainPage.o \
 		main.o \
 		mainwindow.o \
-		moc_HomeWindow.o \
 		moc_MainPage.o \
 		moc_mainwindow.o
 DIST          = /Users/waitwalker/Qt/6.2.0/macos/mkspecs/features/spec_pre.prf \
@@ -308,10 +304,8 @@ DIST          = /Users/waitwalker/Qt/6.2.0/macos/mkspecs/features/spec_pre.prf \
 		/Users/waitwalker/Qt/6.2.0/macos/mkspecs/features/exceptions.prf \
 		/Users/waitwalker/Qt/6.2.0/macos/mkspecs/features/yacc.prf \
 		/Users/waitwalker/Qt/6.2.0/macos/mkspecs/features/lex.prf \
-		../MyWPS/MyWPS.pro ../MyWPS/HomeWindow.h \
-		../MyWPS/MainPage.h \
-		../MyWPS/mainwindow.h ../MyWPS/HomeWindowcpp.cpp \
-		../MyWPS/MainPage.cpp \
+		../MyWPS/MyWPS.pro ../MyWPS/MainPage.h \
+		../MyWPS/mainwindow.h ../MyWPS/MainPage.cpp \
 		../MyWPS/main.cpp \
 		../MyWPS/mainwindow.cpp
 QMAKE_TARGET  = MyWPS
@@ -334,7 +328,7 @@ include /Users/waitwalker/Qt/6.2.0/macos/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-MyWPS.app/Contents/MacOS/MyWPS: ui_HomeWindow.h ui_MainPage.h ui_mainwindow.h $(OBJECTS)  
+MyWPS.app/Contents/MacOS/MyWPS: ui_MainPage.h ui_mainwindow.h $(OBJECTS)  
 	@test -d MyWPS.app/Contents/MacOS/ || mkdir -p MyWPS.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -862,9 +856,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../MyWPS/HomeWindow.h ../MyWPS/MainPage.h ../MyWPS/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../MyWPS/HomeWindowcpp.cpp ../MyWPS/MainPage.cpp ../MyWPS/main.cpp ../MyWPS/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../MyWPS/HomeWindow.ui ../MyWPS/MainPage.ui ../MyWPS/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../MyWPS/MainPage.h ../MyWPS/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../MyWPS/MainPage.cpp ../MyWPS/main.cpp ../MyWPS/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../MyWPS/MainPage.ui ../MyWPS/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -893,15 +887,9 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_HomeWindow.cpp moc_MainPage.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_MainPage.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_HomeWindow.cpp moc_MainPage.cpp moc_mainwindow.cpp
-moc_HomeWindow.cpp: ../MyWPS/HomeWindow.h \
-		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/QWidget \
-		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
-		/Users/waitwalker/Qt/6.2.0/macos/libexec/moc
-	/Users/waitwalker/Qt/6.2.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=12 -D__clang_minor__=0 -D__clang_patchlevel__=5 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/waitwalker/Qt/6.2.0/macos/mkspecs/macx-clang -I/Users/waitwalker/Desktop/工作/Demos/Qt/QtWidgetDemos/MyWPS -I/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers -I/Users/waitwalker/Qt/6.2.0/macos/lib/QtGui.framework/Headers -I/Users/waitwalker/Qt/6.2.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/waitwalker/Qt/6.2.0/macos/lib ../MyWPS/HomeWindow.h -o moc_HomeWindow.cpp
-
+	-$(DEL_FILE) moc_MainPage.cpp moc_mainwindow.cpp
 moc_MainPage.cpp: ../MyWPS/MainPage.h \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -918,13 +906,9 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_HomeWindow.h ui_MainPage.h ui_mainwindow.h
+compiler_uic_make_all: ui_MainPage.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_HomeWindow.h ui_MainPage.h ui_mainwindow.h
-ui_HomeWindow.h: ../MyWPS/HomeWindow.ui \
-		/Users/waitwalker/Qt/6.2.0/macos/libexec/uic
-	/Users/waitwalker/Qt/6.2.0/macos/libexec/uic ../MyWPS/HomeWindow.ui -o ui_HomeWindow.h
-
+	-$(DEL_FILE) ui_MainPage.h ui_mainwindow.h
 ui_MainPage.h: ../MyWPS/MainPage.ui \
 		/Users/waitwalker/Qt/6.2.0/macos/libexec/uic
 	/Users/waitwalker/Qt/6.2.0/macos/libexec/uic ../MyWPS/MainPage.ui -o ui_MainPage.h
@@ -945,16 +929,14 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-HomeWindowcpp.o: ../MyWPS/HomeWindowcpp.cpp ../MyWPS/HomeWindow.h \
-		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/QWidget \
-		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
-		ui_HomeWindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o HomeWindowcpp.o ../MyWPS/HomeWindowcpp.cpp
-
 MainPage.o: ../MyWPS/MainPage.cpp ../MyWPS/MainPage.h \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
-		ui_MainPage.h
+		ui_MainPage.h \
+		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/QLabel \
+		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qboxlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainPage.o ../MyWPS/MainPage.cpp
 
 main.o: ../MyWPS/main.cpp ../MyWPS/mainwindow.h \
@@ -962,7 +944,7 @@ main.o: ../MyWPS/main.cpp ../MyWPS/mainwindow.h \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qapplication.h \
-		../MyWPS/HomeWindow.h \
+		../MyWPS/MainPage.h \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../MyWPS/main.cpp
@@ -972,9 +954,6 @@ mainwindow.o: ../MyWPS/mainwindow.cpp ../MyWPS/mainwindow.h \
 		/Users/waitwalker/Qt/6.2.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../MyWPS/mainwindow.cpp
-
-moc_HomeWindow.o: moc_HomeWindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_HomeWindow.o moc_HomeWindow.cpp
 
 moc_MainPage.o: moc_MainPage.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainPage.o moc_MainPage.cpp
